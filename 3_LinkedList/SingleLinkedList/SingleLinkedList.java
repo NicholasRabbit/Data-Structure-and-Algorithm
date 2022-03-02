@@ -75,6 +75,37 @@ public class SingleLinkedList {
 			temp = temp.next;
 		}
 	}
+
+	//4,修改节点
+	public void updateNode(NodeDemo node){
+		
+		//4.(1)首先判断链表是否为空
+		
+		if(head.next == null){
+			System.out.println("链表为空，无法修改");
+			return;
+		}
+		//(2)根据id修改节点信息，注意id不可更改
+		NodeDemo temp = head.next;
+		boolean flag = false;
+		while(true){
+			//遍历完链表，没有找到相同的id
+			if(temp == null){
+				System.out.println("没有找到此id");
+				break;
+			}
+			//对链表进行遍历
+			if(temp.id == node.id){
+				flag = true;   //找到节点，flag改为true
+				break;     //找到后终止循环，否则temp会被重新赋值
+			}
+			temp = temp.next;  
+		}
+		//找到节点后，进行修改
+		if(flag){
+			temp.name = node.name;
+		}
+	}
 }
 
 

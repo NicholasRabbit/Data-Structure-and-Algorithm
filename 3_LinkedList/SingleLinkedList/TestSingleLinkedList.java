@@ -24,6 +24,13 @@ public class TestSingleLinkedList {
 		listOrder.addByOrder(new NodeDemo(2003,"Joseph"));
 		listOrder.show();
 
+		System.out.println("分割线=============修改节点");
+
+		//3,updateNode(..)修改节点
+		NodeDemo node01 = new NodeDemo(2004,"MacJones");
+		listOrder.updateNode(node01);
+		listOrder.show();
+
 	}
 }
 
