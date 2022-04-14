@@ -45,7 +45,7 @@ public class SingleLinkedList {
 			return 0;
 		}else{
 			//找到第一个比新节点id大的节点，添加newNode到该节点前面
-			//当所有节点的id都小于新节点时，在这里也会添加，只是temp.next = null而已
+			//当所有节点的id都小于新节点时，在这里也会添加，只是把newNode添加到最后，newNode.next = null而已
 			newNode.next = temp.next;  //添加到B(temp.next指向的节点)节点前
 			temp.next = newNode;       //把newNode的地址给A.next(temp的next属性)
 		}
@@ -106,6 +106,34 @@ public class SingleLinkedList {
 			temp.name = node.name;
 		}
 	}
+
+	/*
+	*5,删除节点。注意：是通过用户指定节点的序号删除，不是内存地址，因为不可能预先知道内存地址
+	*思路：
+	*因为是单向链表，后节点没有前节点的地址，因此不能遍历到要删除的节点再删除，而是遍历到被删除节点的前一个节点时就通过temp.next进行删除操作
+	*/
+	public void deleteNode(int id){
+		NodeDemo temp = head;
+		boolean flag = false;
+		while(true){
+			if(temp.next == null){
+				System.out.println("没有找到该节点！");
+				break;
+			} else if(temp.next.id == id){
+				flag = true;   //这里找到了要删除的节点，把flag=true
+				break;
+			}
+			//节点后移，继续找
+			temp = temp.next;
+		}
+
+		if(flag){
+			temp.next = temp.next.next;   //这里把被删除节点N的下个节点的内存地址给N前一个节点的next，即可达到删除目的，这是N没有被引用指向，会被回收
+		}else{
+			System.out.println("没有找到该节点！");
+		}
+	}
+
 }
 
 

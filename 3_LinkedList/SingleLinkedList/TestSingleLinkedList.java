@@ -22,13 +22,20 @@ public class TestSingleLinkedList {
 		listOrder.addByOrder(new NodeDemo(2004,"Daniel"));
 		listOrder.addByOrder(new NodeDemo(2002,"Bill"));
 		listOrder.addByOrder(new NodeDemo(2003,"Joseph"));
-		listOrder.show();
+		listOrder.show();   //3,遍历单向链表
 
+	
+		
 		System.out.println("分割线=============修改节点");
-
-		//3,updateNode(..)修改节点
+		//4,updateNode(..)修改节点，指修改节点内容，不是修改节点的内存地址
 		NodeDemo node01 = new NodeDemo(2004,"MacJones");
 		listOrder.updateNode(node01);
+		listOrder.show();
+
+		//5,deleteNode(..) 删除节点
+		System.out.println("分割线=============删除节点");
+		listOrder.deleteNode(2001);
+		listOrder.deleteNode(2004);
 		listOrder.show();
 
 	}
