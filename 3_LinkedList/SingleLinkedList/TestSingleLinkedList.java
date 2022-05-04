@@ -38,6 +38,22 @@ public class TestSingleLinkedList {
 		listOrder.deleteNode(2004);
 		listOrder.show();
 
+		//6,链表中有效节点的个数，不包括头节点
+		System.out.println("分割线=============节点个数");
+		listOrder.addByOrder(new NodeDemo(2005,"Nash"));
+		listOrder.addByOrder(new NodeDemo(2006,"Brady"));
+		listOrder.addByOrder(new NodeDemo(2007,"Zoey"));
+		NodeDemo head = listOrder.getHead();
+		int length = SingleLinkedList.getLength(head);   //一般操作链表时先找到头节点
+		System.out.println("单向链表长度==>" + length);
+
+		//7,获取倒数第index个节点
+		System.out.println("分割线=============倒数第index个节点");
+		listOrder.show();  //先遍历下节点
+		head =listOrder.getHead();
+		NodeDemo indexNode = listOrder.getBackwardIndex(head,2);
+		System.out.println("倒数第二个节点==>" + indexNode);
+
 	}
 }
 

@@ -1,7 +1,11 @@
 public class SingleLinkedList {
 	
 	private NodeDemo head = new NodeDemo(0,"");  //初始化头节点，里面不存数据
-
+	
+	//0.获取头节点，链表头节点的内存地址就是代表链表的地址，一般对链表操作都先获取头节点
+	public NodeDemo getHead(){
+		return this.head;
+	}
 	
 	//1,添加节点方法add()不做排序
 	public int add(NodeDemo newNode){
@@ -134,9 +138,54 @@ public class SingleLinkedList {
 		}
 	}
 
+	/*
+	*6,链表中有效节点的个数，不包括头节点
+	*/
+	public static int getLength(NodeDemo head){
+		int count = 0;
+		if(head.next == null){
+			return count;
+		}
+
+		NodeDemo temp = head.next;	
+		while(temp != null){
+			count++;
+			temp = temp.next;  //别忘了指针后移
+		}
+		return count;
+	}
+
+	/*
+	*7,获取倒数第n个节点
+	*思路：
+	*(1)考虑下标越界问题，如果链表只有5个节点，求倒数第6个需要判断并返回null;
+	*(2)首先求出总结点数m，然后从前向后遍历，不要从后向前遍历，太麻烦;
+	*(3)开始先把指针放到第一个节点上，倒数第n个节点就是向后移动m-n个位置;
+	*/
+	public NodeDemo getBackwardIndex(NodeDemo head, int index){
+		//链表长度，即有效节点个数
+		int length = getLength(head);
+		//如果是倒数第0个，或着倒数的节点超过了链表长度，则返回null
+		if(index <= 0 || index > length){
+			return null;
+		}
+		//把指针指向第一个节点，然后在for循环向移动，例，如果有5个节点，倒数第2个就是再向后移动5-2=3个位置，i<3，即i=0时移动一次，1，2时移动两次即可到指定节点
+		NodeDemo currentNode = head.next;
+		for(int i=0; i < length - index; i++){  
+			currentNode = currentNode.next;  //i=0时会执行一次后移
+		}
+		return currentNode;
+	}
+
+	/*
+	*8,链表反转
+	*/
+
+
+
 }
 
-
+//节点类
 class NodeDemo {
 
 	public int id;
