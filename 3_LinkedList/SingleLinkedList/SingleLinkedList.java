@@ -1,3 +1,6 @@
+
+import java.util.Stack;
+
 public class SingleLinkedList {
 	
 	private NodeDemo head = new NodeDemo(0,"");  //初始化头节点，里面不存数据
@@ -40,7 +43,7 @@ public class SingleLinkedList {
 			}else if(temp.next.id == newNode.id){
 				flag = true;
 			}
-			temp = temp.next;	//指针后移
+			temp = temp.next;	//节点的id小于新节点的id时，指针后移
 		}
 
 		//(2)判断添加的id是否重复
@@ -179,7 +182,51 @@ public class SingleLinkedList {
 
 	/*
 	*8,链表反转
+	*思路：
+	*(1)首先判断链表是否为空,或者只有一个子节点
+	*(2)新建一个表头，作为反转链表的新表头；
+	*(3)去除原有链表的第一个节点，让新表头指向它，原链表把此节点删除，则原链表的第二个节点成了第一个了；
+	*(4)再去除原链表的第一个节点(实际是第二个节点变成的)，把此节点放到新链表的表头和第一个节点中间，如此重复即可；
+	*
 	*/
+	public static NodeDemo reverseLinkedList(NodeDemo head){
+		//判断链表是否为空
+		if(head.next == null || head.next.next == null){
+			return head;
+		}
+		//下面进行反转
+		NodeDemo reverseHead = new NodeDemo(0,"");   //声明反转链表的头节点
+		NodeDemo current = head.next;  //取出原链表的当前的第一个节点
+		NodeDemo next = null;  //第一个节点的下一个节点，备用
+		while(current != null){
+			next = current.next;   //(a)关键步骤，当取出原链表的第一个节点时，这里next是原链表的第二个节点，在下面会用到
+			current.next = reverseHead.next;  //(b)把新的节点插在头节点和第一个节点之间
+			reverseHead.next = current;       //给新的头节点的next赋值，让它指向插入的节点
+			current = next;   //当前节点后移，下次循环到(a)处时，就表示取出原链表的第一个节点（第二个节点前移）的作用
+		}
+		head.next = reverseHead.next;  //还使用原来的头节点作为反转后链表的节点
+		return head;
+	}
+
+	/*
+	*9,逆序打印链表
+	*思路：
+	*(1)错误思路：使用8中反转链表的做法，再打印链表，不可行，因为会破会原链表的结构，下次正序打印时就打印不了；
+	*(2)利用栈的先进后出的特性，把链表放进栈里，进行打印；
+	*/
+	public static Stack<NodeDemo> printReverseList(NodeDemo head){
+		Stack<NodeDemo> stack = new Stack<NodeDemo>();
+		if(head.next == null){
+			return stack;
+		}
+		NodeDemo cur = head.next;
+		while(cur != null){
+			stack.push(cur);
+			cur = cur.next;
+		}
+		return stack;
+		
+	}
 
 
 
