@@ -1,13 +1,16 @@
-/*本例使用环形数组解决例1中出现的问题
-解决思路：利用取余数的思路，使得head,tail箭头走到数组尾部时，再添加元素则循环到数组头部
-也可以把环形数组想象现在这个数组后边接的一个同样长度的数组，下标一直是0-4
+/*
+本例，以数组[0,1,2,3,4]为例;
+本例使用环形数组解决例1中出现的问题
+解决思路：利用取余数的思路，使得head,tail箭头走到数组尾部时，再添加元素则循环到数组头部；
+也可以把环形数组想象现在这个数组后边接的一个同样长度的数组，下标一直是0-4；
+
 */
 
 public class CircleArrayQueue {
 	
 	//头部箭头指向数组的第一个元素，与QueueArrayTest001里不一样
 	private int head;	
-	//尾部箭头指向最后一个元素的下一位，与上例也不一样，这一个位置占用数组中的一位，始终为空，也可以不留空位
+	//尾部箭头指向最后一个元素，与上例一样，这个位置后面一位，始终为空，也可以不留空位，修改isFull()方法即可
 	private int tail;	
 	private int maxSize;
 	private int[] circleArr;
@@ -94,6 +97,7 @@ public class CircleArrayQueue {
 	//判断队列是否已满
 	public boolean isFull(){
 		//这里tail + 1就是留了一个空位置，可以不留，不留的话，数组满后，tail会循环指向0的位置
+		//如果是 tail % maxSize == 0 则表示不留空位 
 		boolean isFull = (tail + 1) % maxSize == 0;
 		return isFull;
 	}
