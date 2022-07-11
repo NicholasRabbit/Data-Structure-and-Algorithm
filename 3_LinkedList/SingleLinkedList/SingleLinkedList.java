@@ -13,14 +13,15 @@ public class SingleLinkedList {
 	//1,添加节点方法add()不做排序
 	public int add(NodeDemo newNode){
 		//把头节点赋值于临时变量，head头节点不可动，动了就找不到链表的内存地址了，后面要改变temp的next指针
-		NodeDemo temp = head;  
+		NodeDemo temp = head;   
+		int count = 0;
 		//当节点后面还有节点时，继续循环
 		while(temp.next != null){
 			temp = temp.next;
+			count ++;
 		}
-		//temp.next == null时走下一句
+		//temp.next == null时走下一句,添加新节点到末尾
 		temp.next = newNode;
-		int count = 1;
 		return count;
 	}
 
@@ -234,7 +235,7 @@ public class SingleLinkedList {
 
 //节点类
 class NodeDemo {
-
+	//这里不用set,get方法，为了可直接用对象调用属性，使代码简洁易读
 	public int id;
 	public String name;
 	public NodeDemo next; //指向下一个节点
