@@ -14,6 +14,8 @@ public class DoubleLikedListTest {
 		//(2)根据id有序添加节点
 		list.addByOrder(new NodeDemo(1002,"Ben"));
 		list.addByOrder(new NodeDemo(1006,"Hans"));
+		list.addByOrder(new NodeDemo(1004,"Gibrelle"));
+		list.addByOrder(new NodeDemo(1004,"Dan"));
 		System.out.println("有序添加节点，遍历=======");
 		list.showList();
 

@@ -52,21 +52,26 @@ public class DoubleLinkedList {
 	public int addByOrder(NodeDemo newNode){
 		
 		int count = 0;
-		NodeDemo temp = head;
+		NodeDemo temp = head;  //=this.head
 		boolean flag = false;
 
 		//第一步，检查链表是否为空，为空则直接添加
-		if(temp.next == null){
+		/* if(temp.next == null){
 			temp.next = newNode;
 			newNode.pre = temp;
 			return count++;
-		}
+		} */
 		//第二步：链表不为空，比较id进行添加
 		while(temp.next != null){
 			//找到第一个比新节点id大的节点，设置flag为true。
 			if(temp.id > newNode.id){
 				flag = true;
 				break;
+			}else if(temp.id == newNode.id){
+				//id相同则覆盖，只需要改名字即可，别的无需动
+				temp.name = newNode.name;
+				System.out.println("id:"+ newNode.id +"存在，已修改名字为: " + temp.name);
+				return count++;
 			}
 			temp = temp.next;
 		}
@@ -74,12 +79,14 @@ public class DoubleLinkedList {
 		if(flag){
 			newNode.pre = temp.pre;
 			newNode.next = temp;
+			temp.pre.next = newNode;  //注意，temp的上一个节点的next要指向newNode，否则插入失败
+			temp.pre = newNode;
 			count++;
 		}else{
 			//如果链表内节点id都比新节点小，则添加到末尾
 			temp.next = newNode;
 			newNode.pre = temp;
-			count++;
+			count++;	
 		}
 		return count;
 
