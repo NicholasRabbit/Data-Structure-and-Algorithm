@@ -55,14 +55,15 @@ public class DoubleLinkedList {
 		NodeDemo temp = head;  //=this.head
 		boolean flag = false;
 
-		//第一步，检查链表是否为空，为空则直接添加
+		//第一步，检查链表是否为空，为空则直接添加，无需判断，下面轮询包含head.next=null的情况
 		/* if(temp.next == null){
 			temp.next = newNode;
 			newNode.pre = temp;
 			return count++;
 		} */
 		//第二步：链表不为空，比较id进行添加
-		while(temp.next != null){
+		//这里条件不能设置为：while(temp.next != null),如此会导致无法判断链表最后一个节点，因为有可能最后一个节点的id比newNode的id大
+		while(true){    
 			//找到第一个比新节点id大的节点，设置flag为true。
 			if(temp.id > newNode.id){
 				flag = true;
@@ -72,6 +73,9 @@ public class DoubleLinkedList {
 				temp.name = newNode.name;
 				System.out.println("id:"+ newNode.id +"存在，已修改名字为: " + temp.name);
 				return count++;
+			}
+			if(temp.next == null){
+				break;  //遍历到最后一个节点，终端循环
 			}
 			temp = temp.next;
 		}

@@ -13,9 +13,9 @@ public class DoubleLikedListTest {
 		list.showList(); 
 		//(2)根据id有序添加节点
 		list.addByOrder(new NodeDemo(1002,"Ben"));
+		list.addByOrder(new NodeDemo(1004,"Gibrelle"));  //测试刚好最后一个节点比新节点id大的情况
 		list.addByOrder(new NodeDemo(1006,"Hans"));
-		list.addByOrder(new NodeDemo(1004,"Gibrelle"));
-		list.addByOrder(new NodeDemo(1004,"Dan"));
+		list.addByOrder(new NodeDemo(1004,"Dan"));		//测试相同id，覆盖name参数
 		System.out.println("有序添加节点，遍历=======");
 		list.showList();
 
