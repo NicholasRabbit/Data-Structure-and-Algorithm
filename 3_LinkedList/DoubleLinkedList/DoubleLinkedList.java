@@ -14,7 +14,7 @@ public class DoubleLinkedList {
 	/*
 	一，遍历双向链表，与遍历单向链表做法一样
 	*/
-	public void showList(NodeDemo head){
+	public void showList(){
 		//首先，判断链表是否为空
 		if(head.next == null){
 			System.out.println("链表为空！");
@@ -30,7 +30,7 @@ public class DoubleLinkedList {
 	}
 
 	/*
-	二，添加节点，默认不按id大小添加，添加到链表末尾
+	二，(1)添加节点，默认不按id大小添加，添加到链表末尾
 	*/
 	public int add(NodeDemo newNode){
 		//使用临时节点，不要动head，head是找到链表的标识
@@ -48,6 +48,42 @@ public class DoubleLinkedList {
 		return count;
 	}
 
+	//(2)有序添加节点，按id从下到大排序
+	public int addByOrder(NodeDemo newNode){
+		
+		int count = 0;
+		NodeDemo temp = head;
+		boolean flag = false;
+
+		//第一步，检查链表是否为空，为空则直接添加
+		if(temp.next == null){
+			temp.next = newNode;
+			newNode.pre = temp;
+			return count++;
+		}
+		//第二步：链表不为空，比较id进行添加
+		while(temp.next != null){
+			//找到第一个比新节点id大的节点，设置flag为true。
+			if(temp.id > newNode.id){
+				flag = true;
+				break;
+			}
+			temp = temp.next;
+		}
+		//插入新节点
+		if(flag){
+			newNode.pre = temp.pre;
+			newNode.next = temp;
+			count++;
+		}else{
+			//如果链表内节点id都比新节点小，则添加到末尾
+			temp.next = newNode;
+			newNode.pre = temp;
+			count++;
+		}
+		return count;
+
+	}
 
 
 }
