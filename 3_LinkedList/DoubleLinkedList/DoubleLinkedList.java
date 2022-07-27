@@ -93,9 +93,69 @@ public class DoubleLinkedList {
 			count++;	
 		}
 		return count;
+	
+	}
+	
+	/*
+	三，删除节点，根据id
+	*/
+	public int deleteNode(int id){
+		NodeDemo temp = head.next;
+		int count = 0;
+		//判断链表是否有节点
+		if(temp == null){
+			System.out.println("链表为空，无法删除！");
+			return count;
+		} 
+		do{
+			if(temp == null){	//已循环到最后
+				break;  
+			}
+			if(temp.id == id){
+				temp.pre.next = temp.next;  //双向链表可以自我删除
+				/*下面直接写有问题，如果删除的是最后一个节点，那么temp.next=null，temp.next.pre会报NullPointerException*/
+				//temp.next.pre = temp.pre;  
+				//正确写法
+				if(temp.next != null){
+					temp.next.pre = temp.pre;
+				}
+				count ++;
+				break;
+			}
+			temp = temp.next;  //注意，指针一定要后移，否则无限循环
+		}while(true);
 
+		if(count == 0){
+			System.out.println("无此节点：" + id);
+		} 
+		return count;
 	}
 
+	//四，修改节点
+	public boolean updateNode(NodeDemo nodeDemo){
+		NodeDemo temp = head.next;
+		boolean flag = false;
+		if(temp == null){
+			System.out.println("链表为空");
+			return flag;
+		}
+		while(true){
+			if(temp.id == nodeDemo.id){
+				flag = true;
+				break;
+			}
+			temp = temp.next;
+		}
+		//判断是否修改成功
+		if(flag){
+			temp.name = nodeDemo.name;  //节点中只有name是可修改的，其它的不用改
+			System.out.println("修改成功");
+		}else{
+			System.out.println("无此节点");
+		}
+		return flag;
+
+	}
 
 }
 

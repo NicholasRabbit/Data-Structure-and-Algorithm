@@ -94,7 +94,7 @@ class CircleSingleLinkedList {
 			helper = helper.getNext();
 		}
 		//当小孩报数时，让first 和 helper 指针同时 的移动  m  - 1 次, 然后出圈
-		//这里是一个循环操作，知道圈中只有一个节点
+		//这里是一个循环操作，直到圈中只有一个节点
 		while(true) {
 			if(helper == first) { //说明圈中只有一个节点
 				break;
