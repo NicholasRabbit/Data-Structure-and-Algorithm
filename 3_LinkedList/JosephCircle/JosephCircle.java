@@ -100,8 +100,9 @@ public class JosephCircle{
 			}
 			//上面for循环结束后，first指向要出圈的节点。
 			//下面是进行出圈操作
+			System.out.println("要出圈的节点==>" + first.id);
 			first = first.next;  //节点后移一位，指向新的头节点
-			endNode = first;     //最后一个节点的next指向新的头节点，出圈的就没有引用指向了，即为出圈。
+			endNode.next = first;     //最后一个节点的next指向新的头节点，原来的节点就没有引用指向了，即为出圈。
 		}
 		//5）最后first就指向圈中唯一剩余的一个节点
 		System.out.println("按规定令节点出圈后，剩余最后一个==>" + first.id);
