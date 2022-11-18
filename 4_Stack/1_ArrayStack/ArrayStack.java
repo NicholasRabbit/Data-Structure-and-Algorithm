@@ -4,9 +4,9 @@
 
 public class ArrayStack{
 
-	int top = -1; //初始化栈，栈顶底部元素的下一格-1
-	int maxSize;  //栈的最大容量
-	int[] stackArr;
+	int top = -1;    //初始化栈，栈顶底部元素的下一格-1
+	int maxSize;     //栈的最大容量
+	int[] stackArr;  //这个数组模拟栈
 	
 	public ArrayStack(){
 		
