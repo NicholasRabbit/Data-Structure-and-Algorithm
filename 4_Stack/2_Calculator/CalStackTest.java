@@ -16,7 +16,7 @@ public class CalStackTest {
 	
 	}
 	
-	//计算器方法
+	//计算器方法，思路跟课堂老师的一样，但写法和实现方式不一样。
 	public static void calculate(){
 	
 		//String exp = "6+3*5-2"
