@@ -35,12 +35,14 @@ public class NotationTest {
 			//如果元素为空，或栈是数则直接入栈，为空格不进入此条件内
 			if(calStack.isEmpty() || calStack.isNumber(ch)){
 				
-				concatNum += ch;  //拼接多为数字
+				concatNum += ch;  //拼接多位数字
 				
 				//calStack.push(ch - 48);  //个位数的运算按此方式入栈，详见ASCII码表
+				
 				//有多位数的运算，则需要把多位数拼接起来，int ：32对应char的空格space
 				//当前元素的下一格是空格，则把之前拼接的数字入栈
-				if(32 == charArray[i+1]){
+				//注意还要判断是否是最后一位，虽然后缀表达式最后一位是运算符，但也要考虑到如果最后一位是数字则charArray[i+1]会报数组越界异常。
+				if(i == charArray.length -1 || 32 == charArray[i+1]){
 					calStack.push(Integer.parseInt(concatNum));
 					concatNum = "";  //入栈后别忘了初始化
 				}
