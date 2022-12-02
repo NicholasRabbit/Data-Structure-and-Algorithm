@@ -8,7 +8,7 @@ import java.util.*;
 public class InfixToSuffixUtil {
 
 	//String expInfix = "26+15+(6+4)*16/5-7";	
-	public static void toSuffix(String expInfix){
+	public static List<String> toSuffix(String expInfix){
 		
 		//把字符串转化为char数组，也可把运算式拆分成字符串数组。
 		char[] infixArray = expInfix.toCharArray();
@@ -85,6 +85,8 @@ public class InfixToSuffixUtil {
 
 		System.out.println("expSuffixList==>" + expSuffixList);
 	
+	
+		return expSuffixList;
 	}
 
 }

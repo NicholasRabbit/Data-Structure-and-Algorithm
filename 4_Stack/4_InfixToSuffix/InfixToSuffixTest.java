@@ -29,7 +29,9 @@ public class InfixToSuffixTest {
 		
 		String expInfix = "26+15+(6+4)*16/5-7";  //后缀表达式为：26 15 + 6 4 + 16 * 5 / + 7 -
 		//String expInfix = "3+5*6-10";	  //后缀：3 5 6 * + 10 - 
-		InfixToSuffixUtil.toSuffix(expInfix);
+		List<String> expSuffix = InfixToSuffixUtil.toSuffix(expInfix);
+		String result = CalculatorUtil.calculate(expSuffix);
+		System.out.println("result==>" + result);
 	}
 
 	
