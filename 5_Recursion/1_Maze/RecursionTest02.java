@@ -1,8 +1,8 @@
 
 /*
-* 使用递归来进行迷宫回溯，可对二维数组画图进行模拟对比。
+* 改进走不通的路设置成3
 */
-public class RecursionTest {
+public class RecursionTest02 {
 
 	public static void main(String[] args){
 		mazeTest();
@@ -44,62 +44,45 @@ public class RecursionTest {
 	
 	}
 	
-
-
-
-	
 	/*
-	* 用这个方法进行递归，模拟在迷宫走到右下角maze[7][6]的位置。
-	*/
-	/*
-	* 迷宫回溯规则：
-	* 一，“1”表示墙，不能走；
-	*     “2”表示走过的路径，可以走通；
-	*     “3”表示走过却未走通的路；
-	*     “0”表示未走的路。
-	* 二，x,y表示起点,注意：x是表示横轴，y表示竖轴(即对应的二维数组maze[9][8]的[9])
-	* 三，行走方案：下->右->上->左，也可按照其他方案进行;
-	* 四，注意，maze这个变量是所有递归方法所在栈共享的。即在调用下一个递归方法之前，75行maze[y][x] = 2已赋值，
-	* 所以下一步在判断走过的地方是走不回来的。
-	* 五，递归末端的方法执行完后，先弹栈，返回结果给上一个调用的方法，依次类推。
-	*
-	*/
-	/*
-	* 个人初步代码，实现了迷宫，但如果走不到指定的终点就不会反馈结果，即没有把走不通的路设置成“3”
+	* 个人初步代码RecursionTest中实现了迷宫，但如果走不到指定的终点就不会反馈结果，即没有把走不通的路设置成“3”
 	* 没有利用到递归的LiFo的特性。
-	* 在RecurionTest02中改进。
+	* 在此改进。
 	*/
 	public static boolean findWay(int[][] maze, int y, int x){  //注意这里坐标y在x之前。
 		boolean flag = false;
 		//走到终点就停止递归。
 		if(maze[7][6] == 2){
-			return true;
+			flag = true;
 		}
 		//下面进行:下->右->上->左的判断
 		//maze[y][x] == 0表示这个点还没有走过
 		if(maze[y][x] == 0){
 			//赋值2，代表已走。
 			maze[y][x] = 2;
-			//1,向下移动，如果下面的是0则向下走
-			if(maze[y+1][x] == 0){
-				//1.2 使用递归调用
-				findWay(maze,y+1,x);  
+			
+			//1,向下移动，把递归方法当成判断条件，因为返回值是boolean类型
+			if(findWay(maze,y+1,x)){
+				flag = true; 
+			
 			//2,如果上面的走不通，则向右走
-			}else if(maze[y][x+1] == 0){
-				findWay(maze,y,x+1);
+			}else if(findWay(maze,y,x+1)){
+				flag = true;;	
+			
 			//3,或者向上走
-			}else if(maze[y-1][x] == 0){
-				findWay(maze,y-1,x);
+			}else if(findWay(maze,y-1,x)){
+				flag = true;;
+			
 			//4,或者向左走
-			}else if(maze[y][x-1] == 0){
-				findWay(maze,y,x-1);
+			}else if(findWay(maze,y,x-1)){
+				return true;
 			//5，以上情况都走不通，则设置当前点为3
 			}else{
 				maze[y][x] = 3;
+				flag = false;;
 			}
 		//起始点不等于0的情况，
 		}else{
-			maze[y][x] = 3;
 			flag = false;
 		}
 		return flag;
