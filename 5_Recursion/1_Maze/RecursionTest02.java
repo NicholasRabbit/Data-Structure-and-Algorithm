@@ -46,7 +46,7 @@ public class RecursionTest02 {
 	
 	/*
 	* 个人初步代码RecursionTest中实现了迷宫，但如果走不到指定的终点就不会反馈结果，即没有把走不通的路设置成“3”
-	* 没有利用到递归的LiFo的特性。
+	* 没有利用到递归的LiFo的特性，即没有利用回溯。
 	* 在此改进。
 	*/
 	public static boolean findWay(int[][] maze, int y, int x){  //注意这里坐标y在x之前。
