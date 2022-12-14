@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 * (1),(2),3,5,4
 * 第四轮：
 * (1),(2),(3),4,5
+* 总结：选择排序法时间复杂度O(2^n)
 */
 public class SelectSortTest {
 	
@@ -31,7 +32,7 @@ public class SelectSortTest {
 		selectSort(array);
 		list(array);
 
-		////测试较大数组的排序时间
+		//测试较大数组的排序时间
 		int[] array2 = new int[50000];  //五十万条数据
 		for(int i = 0; i < array2.length; i++){
 			array2[i] = (int)(Math.random() * 50000);

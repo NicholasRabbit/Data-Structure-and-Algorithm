@@ -54,7 +54,7 @@ public class BubbleSortTest {
 		bubbleSort(array2);
 		Date end = new Date();
 		System.out.println("结束时间==>" + sdf.format(end));
-		list(array2);
+		//list(array2);
 
 
 	}
