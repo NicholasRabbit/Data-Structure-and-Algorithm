@@ -40,7 +40,60 @@ public class InsertionSortTest {
 	}
 
 	
-	//插入排序，使用for循环自动完成排序
+		//方式一：插入排序，手动一步步交换，来理解思路。
+	public static void insertSortByStep(int[] array){
+	
+		//第一次交换
+		int insertValue = array[1];  //从第二个元素开始是要插入到之前的数组的，赋值给临时变量insertValue
+		int insertIndex = 1 - 1; 
+		/*
+		* insertIndex --表示，每循环一次，下标前移继续判断前面的元素
+		*/
+		while(insertIndex >= 0 && insertValue < array[insertIndex]){
+			array[insertIndex + 1] = array[insertIndex]; //把前面数值大的元素5赋值给array[1];
+			insertIndex --;
+		} //(1)while循环完之后：5,5,3,2,1
+
+		/*
+		* 退出while循环时，表示已找到合适的位置，已把数值大的数5移动到后面[1]的位置，
+		* 但是由于为了向前遍历，执行了insertIndex --，下标后移到0，这里再加回来，把insertValue(4)这个值赋值给array[0]
+		*/
+		array[insertIndex + 1] = insertValue;  //(2)这里赋值完之后：4,5,3,2,1
+		
+		System.out.print("第一次交换：");
+		list(array);
+
+		/* 
+		* 第二次交换：
+		* 第一次形成的数组(4,5),3,2,1，括号内就是模拟的第一个数组。
+		* 因为第一次交换完之后，数组的前两个元素已排好顺序，只要大就依次后移，不会出现乱序的情况。
+		* 即不会出现(6,5),3,2,1，判断3比5小，5后移，比6小，6后移却在5之前的情况(3,6,5),2,1。
+		*/
+		insertValue = array[2];  //从第二个元素开始是要插入到之前的数组的
+		insertIndex = 2 - 1; 
+		/*
+		* insertIndex --表示，每循环一次，下标前移继续判断前面的元素
+		*/
+		while(insertIndex >= 0 && insertValue < array[insertIndex]){
+			array[insertIndex + 1] = array[insertIndex]; 
+			insertIndex --;
+		} //(1)while循环完之后：4,4,5,2,1
+		/*
+		* 退出while循环时，表示已找到合适的位置，已把数值大的数5移动到后面[1]的位置，
+		* 但是由于向前遍历了insertIndex --，所以后移到0，把insertValue(4)这个值赋值给array[0]
+		*/
+		array[insertIndex + 1] = insertValue;  //(2)这里赋值完之后：3,4,5,2,1
+		
+		System.out.print("第二次交换：");
+		list(array);
+
+		//第三次第四次。。同理。
+		
+	}
+	
+	
+	
+	//方式二：插入排序，使用for循环自动完成排序
 	public static void insertSort(int[] array){
 		/*
 		* 下标从1开始，不是0，因为把0下标的元素当作模拟的一个数组
@@ -69,56 +122,7 @@ public class InsertionSortTest {
 	}
 	
 	
-	//插入排序，手动一步步交换，来理解思路。
-	public static void insertSortByStep(int[] array){
-	
-		//第一次交换
-		int insertValue = array[1];  //从第二个元素开始是要插入到之前的数组的，赋值给临时变量insertValue
-		int insertIndex = 1 - 1; 
-		/*
-		* insertIndex --表示，每循环一次，下标前移继续判断前面的元素
-		*/
-		while(insertIndex >= 0 && insertValue < array[insertIndex]){
-			array[insertIndex + 1] = array[insertIndex]; //把前面数值大的元素5赋值给array[1];
-			insertIndex --;
-		} //(1)while循环完之后：5,5,3,2,1
 
-		/*
-		* 退出while循环时，表示已找到合适的位置，已把数值大的数5移动到后面[1]的位置，
-		* 但是由于向前遍历了insertIndex --，所以后移到0，把insertValue(4)这个值赋值给array[0]
-		*/
-		array[insertIndex + 1] = insertValue;  //(2)这里赋值完之后：4,5,3,2,1
-		
-		System.out.print("第一次交换：");
-		list(array);
-
-		/* 
-		* 第二次交换：
-		* 第一次形成的数组(4,5),3,2,1，括号内就是模拟的第一个数组。
-		* 因为第一次交换完之后，数组的前两个元素已排好顺序，只要大就依次后移，不会出现乱序的情况。
-		* 即不会出现(6,5),3,2,1，判断3比5小，5后移，比6小，6后移却在5之前的情况。
-		*/
-		insertValue = array[2];  //从第二个元素开始是要插入到之前的数组的
-		insertIndex = 2 - 1; 
-		/*
-		* insertIndex --表示，每循环一次，下标前移继续判断前面的元素
-		*/
-		while(insertIndex >= 0 && insertValue < array[insertIndex]){
-			array[insertIndex + 1] = array[insertIndex]; 
-			insertIndex --;
-		} //(1)while循环完之后：4,4,5,2,1
-		/*
-		* 退出while循环时，表示已找到合适的位置，已把数值大的数5移动到后面[1]的位置，
-		* 但是由于向前遍历了insertIndex --，所以后移到0，把insertValue(4)这个值赋值给array[0]
-		*/
-		array[insertIndex + 1] = insertValue;  //(2)这里赋值完之后：3,4,5,2,1
-		
-		System.out.print("第二次交换：");
-		list(array);
-
-		//第三次第四次。。同理。
-		
-	}
 
 
 	//遍历方法
