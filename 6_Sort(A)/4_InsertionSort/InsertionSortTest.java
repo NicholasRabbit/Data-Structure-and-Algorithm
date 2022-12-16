@@ -48,9 +48,10 @@ public class InsertionSortTest {
 		int insertIndex = 1 - 1; 
 		/*
 		* insertIndex --表示，每循环一次，下标前移继续判断前面的元素
+		* insertValue < array[insertIndex]：表示紧邻的两个元素，前面的数大于后面，前面的数需要后移。
 		*/
 		while(insertIndex >= 0 && insertValue < array[insertIndex]){
-			array[insertIndex + 1] = array[insertIndex]; //把前面数值大的元素5赋值给array[1];
+			array[insertIndex + 1] = array[insertIndex]; //把前面数值大的元素5赋值给array[1]，即把前一位大的数后移了。
 			insertIndex --;
 		} //(1)while循环完之后：5,5,3,2,1
 

@@ -3,13 +3,14 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 /*
+* 本例采用交换法的希尔排序，还有使用移动法的再ShellSortTest02中。
+* 
 * ShellSort，希尔排序实在插入排序的基础上进行优化的一种排序。
 * 
 * 例：{2,3,4,5,6,1}
 * 这样的数组，最小的在最后，使用插入排序的话前面5个每次都得后移，效率低。
 * 希尔排序在这方面做了优化。
 * 
-* 本例采用交换法的希尔排序，还有使用移动法的再ShellSortTest02中。
 * 
 * 例：{9,8,7,6,5,4,3,2,1,0}
 * 思路：
@@ -28,20 +29,24 @@ public class ShellSortTest01 {
 		shellSortByStep(array);
 
 		int[] array2 = {9,8,7,6,5,4,3,2,1,0};		
-		sheelSort(array2);
+		shellSort(array2);
 
-		//测试希尔插入排序时间，个人测试希尔排序比插入排序时间长……
+		/*
+		* 测试希尔插入排序时间，个人测试希尔排序比插入排序时间长
+		* 原因：本例采用的交换法希尔排序，遇到小的在后面就交换，而插入排序采用的是后移移位的方式，比交换的速度快。
+		*/
 		int[] array3 = new int[100000];  
-		for(int i = 0; i < array2.length; i++){
+		for(int i = 0; i < array3.length; i++){
 			array3[i] = (int)(Math.random() * 100000);
 		}
 		System.out.println("length==>" + array3.length);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS");
 		Date start = new Date();
 		System.out.println("开始时间==>" + sdf.format(start));
-		sheelSort(array3);
+		shellSort(array3);
 		Date end = new Date();
 		System.out.println("结束时间==>" + sdf.format(end));
+		//list(array3);  
 		
 	}
 
@@ -132,11 +137,15 @@ public class ShellSortTest01 {
 
 
 	//方式二，使用变量，直接自动完成希尔排序。
-	private static void sheelSort(int[] array){
-		
-		
+	private static void shellSort(int[] array){
+		/*
+		* 每次除以2给数组分组
+		* 分好组之后，array[group]永远是所在组的第二个元素，而j = i - group就是第一个元素。
+		* 例,array[5](前面有array[0]),array[2](前面也是array[0])。
+		*/
 		for(int group = array.length / 2; group > 0; group /= 2){
 			for(int i = group; i < array.length; i++){
+				//这里j = i - group就是所在组的第一个元素。
 				for(int j = i - group; j >= 0; j -=group){
 					if(array[j+group] < array[j]){
 						int temp = array[j];
@@ -146,9 +155,7 @@ public class ShellSortTest01 {
 				}
 			}
 		}
-		//打印结果
-		//System.out.print("array2==>");
-		//list(array);
+	
 
 	}
 
