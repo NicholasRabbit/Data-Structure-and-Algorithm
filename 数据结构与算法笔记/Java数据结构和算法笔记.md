@@ -217,3 +217,10 @@ public long sum(int n){
 思路分析图，结合代码笔记理解。
 
 <img src="note-images/1671155030824.png" alt="1671155030824" style="zoom:50%;" />
+
+##### 2.1 QuickSort快速排序
+
+最大时间复杂度$O(n^2)$
+
+平均时间复杂度$nO(log_2n)$
+
