@@ -97,7 +97,7 @@ public class InsertionSortTest {
 	//方式二：插入排序，使用for循环自动完成排序
 	public static void insertSort(int[] array){
 		/*
-		* 下标从1开始，不是0，因为把0下标的元素当作模拟的一个数组
+		* 下标从1开始，不是0，因为把0下标的元素当作模拟的第一个数组，后面从1开始是第二个数组
 		*/
 		for(int i = 1; i < array.length; i++){
 			//用临时变量存好当前循环到的元素值
