@@ -94,11 +94,27 @@ public class BubbleSortTest {
 	}
 
 	//遍历方法
-	public static void list(int[] array){
-		for(int i = 0; i < array.length; i++){
-			System.out.print(array[i] + " ");
+	//仿写Arrays.toString(..)
+	private static String arrayToString(int[] array){
+		
+		if(array == null){
+			return "null";
 		}
-		System.out.println();
+
+		int maxIndex = array.length - 1;
+		if(maxIndex == -1){
+			return "{}";
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("{");
+		for(int i = 0; ; i++){  //这里for中间没有条件，因此无论如何回进入下面的if语句，所以最后不写return也不报错。
+			builder.append(array[i]);
+			if(i == maxIndex)
+				return builder.append("}").toString();
+			builder.append(",");
+		}
+
 	}
 
 }
