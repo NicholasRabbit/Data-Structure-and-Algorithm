@@ -3,6 +3,10 @@ import java.util.Stack;
 
 public class SingleLinkedList {
 	
+	//(1)链表的头节点的引用地址就是这个链表的地址，找到头节点就找到了整个链表；
+	//(2)这个SingleLinkedList类不是代表链表本身，只是进行维护链表的操作；
+	//(3)之所以设置头节点为不存数据的节点，就是为了后面对第二个节点(即第一个有效节点)操作的时候跟其他节点做法一样
+	//   因为这第二个节点有引用指向，它也有个next指向第三个节点，这样head节点后面的节点特征统一，方便写代码统一处理。
 	private NodeDemo head = new NodeDemo(0,"");  //初始化头节点，里面不存数据
 	
 	//0.获取头节点，链表头节点的内存地址就是代表链表的地址，一般对链表操作都先获取头节点
@@ -20,7 +24,10 @@ public class SingleLinkedList {
 			temp = temp.next;
 			count ++;
 		}
-		//temp.next == null时走下一句,添加新节点到末尾
+		/*
+		* 上面循环直到temp指向最后一个节点时，temp.next=null
+		* 或者当链表中只有一个节点时，temp.next=null不会进入while循环，直接走到这里赋值
+		*/
 		temp.next = newNode;
 		return count;
 	}
@@ -28,7 +35,10 @@ public class SingleLinkedList {
 	/*2,添加节点时按id大小进行排序，addByOrder(..)
 		(1),如果要按id排序，需要考虑判断链表中是否存在相同id
 		思路：首先不能按照当前节点比新增节点的id小，就在该节点后添加，因为可能后面的节点的id也比新节点的id小
-		应该是，循环到一个节点时，此节点刚好比新节点的id大，就在该节点前添加
+		应该是，循环到一个节点时，此节点是第一个且刚好比新节点的id大，就在该节点前添加
+		(2),注意考虑原链表只有一个节点，且该节点id比新节点的小。本例中由于设置链表头节点时无效节点，
+		所以第二个才进行比较id，下面的代码是正确的。
+		当新写个链表，它的第一个节点是有效节点时就需要考虑这种情况。
 	*/
 	public int addByOrder(NodeDemo newNode){
 		NodeDemo temp = head;
@@ -38,7 +48,7 @@ public class SingleLinkedList {
 			if(temp.next == null){
 				break;
 			}
-			//(1)循环时找到第一个比新节点id大的节点
+			//(1)循环时找到第一个比新节点id大的节点，这里temp.next初始值就是第一个有效节点(链表中排在第二的位置)，从这里开始比较id，不要遗漏。
 			if(temp.next.id > newNode.id){
 				break; 
 			}else if(temp.next.id == newNode.id){
@@ -52,8 +62,9 @@ public class SingleLinkedList {
 			System.out.println("id已存在，不可添加");
 			return 0;
 		}else{
-			//找到第一个比新节点id大的节点，添加newNode到该节点前面
+			//(3)找到第一个比新节点id大的节点，添加newNode到该节点前面。
 			//当所有节点的id都小于新节点时，在这里也会添加，只是把newNode添加到最后，newNode.next = null而已
+			//
 			newNode.next = temp.next;  //添加到B(temp.next指向的节点)节点前
 			temp.next = newNode;       //把newNode的地址给A.next(temp的next属性)
 		}
