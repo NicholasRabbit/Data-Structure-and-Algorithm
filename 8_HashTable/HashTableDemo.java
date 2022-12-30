@@ -69,7 +69,7 @@ public class HashTableDemo {
 
 	
 	/*
-	* 9,取模方法，简单版的散列函数。
+	* 5,取模方法，简单版的散列函数。
 	* 因为保证把新元素均匀的添加到哈希表中，实际链表的散列函数的算法要复杂。
 	*/
 	public int hashIndex(int no){
