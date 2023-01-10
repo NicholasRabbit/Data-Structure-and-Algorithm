@@ -54,7 +54,14 @@ public class BinaryTreeTest {
 			
 		//4,三种遍历方式查找比较次数统计，查找的节点相同时，以目前范例来看后序查找似乎是最优的，待后期验证。
 		
-
+		
+		/*
+		* 三，删除节点。（采用直接删除子树的方式，具体见NodeDemo.java内注释）
+		*/
+		int result = tree.deleteNodeTree(2);
+		System.out.println("result of deleting==>" + result);
+		//删除后遍历
+		tree.preList(tree.getRoot());
 
 	}
 

@@ -15,7 +15,7 @@ public class BinaryTreeDemo {
 	}
 
 
-	//一，添加节点
+	//添加节点
 	//1,添加节点，用循环的方式
 	// 注意，这个添加节点代码错误，因为会一直在root左边添加。
 	public int add(NodeDemo newNode){
@@ -47,7 +47,7 @@ public class BinaryTreeDemo {
 
 	
 	/* 
-	* 二，遍历节点，使用递归的方式。注意体会递归的用法，以及在这三种打印方式的区别。
+	* 一，遍历节点，使用递归的方式。注意体会递归的用法，以及在这三种打印方式的区别。
 	* 3,前序遍历节点，输出顺序“根左右”使用递归。
 	* 也可以把则个递归遍历的方法写在节点类里，只是写法稍作改变，参照NodeDemo.java。课堂源码既是如此。
 	*/
@@ -114,7 +114,7 @@ public class BinaryTreeDemo {
 	
 
 	/*
-	* 三，查找节点
+	* 二，查找节点
 	* 也是使用递归，同样的有三种前序，中序，后序查找方式。
 	* 
 	*/
@@ -144,6 +144,24 @@ public class BinaryTreeDemo {
 			return this.root.suffixSearch(no);
 		else
 			return null;
+	}
+
+	
+	/*
+	* 三，删除节点
+	* 删除root节点在这里进行，因为root节点特殊，它不是任何节点的左或右节点。
+	* 注意：本方式删除root就直接把整个二叉树置为null了，没有向上提子节点。
+	* 向上提子节点的方式后面写。
+	*/
+	public int deleteNodeTree(int no){
+		//1,如果根节点符合条件则删除根节点。
+		if(root.getNo() == no){
+			this.root = null;
+			return 1;
+		}
+		//2,查找左右字节点，符合条件的删除
+		return root.deleteNode(no);  //从root开始查找。
+
 	}
 
 	

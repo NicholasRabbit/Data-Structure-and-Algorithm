@@ -7,7 +7,7 @@ public class NodeDemo {
 	private NodeDemo left;
 	private NodeDemo right;
 
-	//统计比较次数，用实例变量。(错误，因为每个节点都有一个此实例变量，不是全局的。)
+	//统计比较次数，用实例变量。(错误，因为每个节点对象都有一个此实例变量，不是全局的。)
 	private int count;
 
 	/*
@@ -132,7 +132,65 @@ public class NodeDemo {
 		return temp;
 
 	}
-	
+
+
+	/*
+	* 三，删除节点。根据指定编号。
+	* 
+	* 删除规则：
+	* 1,因为本例的二叉树是单向的，子节点没有父节点的引用，因此要判断当前父节点的左或右节点是否符合要求，
+	*   然后设置this.left/right=null。
+	* 2,如果是叶子节点，则直接删除；
+	* 3,删除非叶子节点
+	*	3.1 方式一
+	*		如果是非叶子节点，按简单的删除方式，删除子树;
+	*   3.2 方式二
+	*		如果被删除的非叶子节点下只有一个叶子，则把该叶子提到被删除节点的位置;
+	*		如果被删除的非叶子节点下左右叶子都有，则把左节点提到被删除节点的位置。
+	* 4,这里删除左右节点，删除root节点的操作与左右节点特点不同，在BinaryTreeDemo里单独执行。
+	*
+	* 思路步骤：
+	* 1,先比较当前节点的左节点编号是否符合要求，符合则删除，否则比较右节点；
+	* 2,如果左右节点都不符合要求则向下递归，先向左递归，即把左节点当作父节点调用递归方法，
+	*   就递归执行步骤1中的操作。然后同理向右递归。
+	* 
+	*/
+	//3.1 方式一，删除非叶子节点。
+	public int deleteNode(int no){
+		//如果当前节点的左子节点符合要求则删除左子节点，注意：这里把左子节点以下的一并删除了。
+		//this.left != null这个条件不要忘了，因为如果this.left=null说明当前节点是叶子节点，查找到头了，没必要比较了。
+		if(this.left != null && this.left.no == no){
+			this.left = null;
+			return 1;
+		}
+		//右子节点删除同理。
+		if(this.right != null && this.right.no == no){
+			this.right = null;
+			return 1;
+		}
+		
+		//如果左右子节点都不符合要求，则向下递归
+		//先向左递归
+		int delSuccess = 0;  //是否删除成功标志
+		if(this.left != null){
+			//把this.left当作this来调用deleteNode(..)方法，即把左节点当作父节点来比较其左右节点
+			delSuccess = this.left.deleteNode(no); 
+		}
+		/*
+		* 如果删除成功则不需向右递归了。老师课堂代码返回值为void，个人觉着不妥，
+		* 因为返回值空，下面的向右递归程序还是会执行，而节点的no理应作为节点的唯一标识，
+		* 在二叉树中no不应该存在重复的，所以没必要向右递归了。
+		*/
+		if(delSuccess == 1) return 1;
+
+		//如果前面都没找到，则向右递归。
+		if(this.right != null){
+			delSuccess = this.right.deleteNode(no);
+		}
+
+		return delSuccess;
+			
+	}
 
 	
 	public NodeDemo(){
