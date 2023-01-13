@@ -160,7 +160,7 @@ public class BinaryTreeDemo {
 			return 1;
 		}
 		//2,查找左右字节点，符合条件的删除
-		return root.deleteNode(no);  //从root开始查找。
+		return root.deleteNodeWisely(no);  //从root开始查找。
 
 	}
 

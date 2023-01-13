@@ -24,6 +24,8 @@ public class BinaryTreeTest {
 		node02.setRight(node05);
 		node03.setLeft(node06);
 		node03.setRight(node07);
+		node04.setLeft(new NodeDemo(8,"Camile"));
+		node04.setRight(new NodeDemo(9,"Besty"));
 		
 		
 		//一，二叉树的遍历的三种方式。

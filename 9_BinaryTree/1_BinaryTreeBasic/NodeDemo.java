@@ -11,8 +11,8 @@ public class NodeDemo {
 	private int count;
 
 	/*
-	* 一，遍历节点，可在节点内部写遍历的方法，也可在BinaryTreeDemo中写
-	* 在节点内部这里写：前序方式遍历节点。中序，后续遍历方法同理。
+	* 一，前序遍历节点，在本节点内部写遍历的方法，也可在BinaryTreeDemo中写
+	* 在节点内部这里写：前序方式遍历节点。中序，后序遍历方法同理。
 	*/
 	public void preListNode(){
 	
@@ -141,7 +141,7 @@ public class NodeDemo {
 	* 1,因为本例的二叉树是单向的，子节点没有父节点的引用，因此要判断当前父节点的左或右节点是否符合要求，
 	*   然后设置this.left/right=null。
 	* 2,如果是叶子节点，则直接删除；
-	* 3,删除非叶子节点
+	* 3,删除非叶子节点有两种方式：
 	*	3.1 方式一
 	*		如果是非叶子节点，按简单的删除方式，删除子树;
 	*   3.2 方式二
@@ -155,7 +155,7 @@ public class NodeDemo {
 	*   就递归执行步骤1中的操作。然后同理向右递归。
 	* 
 	*/
-	//3.1 方式一，删除非叶子节点。
+	//按方3.1 式一删除非叶子节点，本方法是按中序遍历的方式比较，找到后删除。
 	public int deleteNode(int no){
 		//如果当前节点的左子节点符合要求则删除左子节点，注意：这里把左子节点以下的一并删除了。
 		//this.left != null这个条件不要忘了，因为如果this.left=null说明当前节点是叶子节点，查找到头了，没必要比较了。
@@ -191,6 +191,57 @@ public class NodeDemo {
 		return delSuccess;
 			
 	}
+
+	/*
+	* 按3.2 方式二删除非叶子节点。思路错误。
+	* 原因，左节点提到被删除节点的位置后，如果被删除节点原右节点没有被新的节点指向，
+	* 就断了，因为它还是由被删除的节点指向的。因为提上来的左节点原来有右节点。
+	*/
+	public int deleteNode2(int no){
+		//如果当前节点的左节点符合条件，则需判断其下还有无子节点
+		if(this.left != null && this.left.no == no){
+			//根据规则，如果要删除节点的左节点不为空则把其提到被删除节点的位置
+			if(this.left.left != null){
+				this.left = this.left.getLeft();
+			
+			//走到这里说明左节点为空，则判断右节点，如果右节点不为空则该根节点下只有一个节点，直接提到被删除节点的位置。
+			}else if(this.left.right != null){
+				this.left = this.left.right;
+			
+			//第三种情况就是左节点this.left下面的左右节点都为空，则直接删除该左节点即可
+			}else{
+				this.left = null;
+			}
+
+			return 1;
+		}
+		
+		//同理判断右节点
+		if(this.right != null && this.right.no == no){
+			if(this.right.left != null){
+				this.right = this.right.left;
+			}else if(this.right.right != null){
+				this.right = this.right.right;
+			}else{
+				this.right = null;
+			}
+		}
+		
+		int temp = 0; 
+		//向左递归
+		//向右递归
+
+		//前面思路错误，不需要再写！！
+		return -1;
+	}
+
+	/*
+	* 按3.2 方式二删除非叶子节点的正确做法
+	*/
+	
+	
+
+
 
 	
 	public NodeDemo(){
