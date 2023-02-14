@@ -16,7 +16,8 @@ public class BinaryTreeTest {
 		NodeDemo node07 = new NodeDemo(7,"Michael");
 		
 		//手动添加7个节点。
-		tree.add(node01);
+		//tree.add(node01);  //自动添加的方法错误
+		tree.setRoot(node01);
 		NodeDemo root = tree.getRoot();
 		root.setLeft(node02);
 		root.setRight(node03);
