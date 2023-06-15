@@ -57,7 +57,7 @@ public class HeapSort {
 			temp = arr[j];
 			arr[j] = arr[0];
 			arr[0] = temp;
-			adjustHeap(arr, 0, j); 
+			adjustHeap(arr, 0, j); //个人注：这里中间实参是0，说明实际情况下调整都是是从0开始的，老师从1开始只是举个例子。
 		}
 		
 		//System.out.println("数组=" + Arrays.toString(arr)); 
