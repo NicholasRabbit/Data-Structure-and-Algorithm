@@ -1,4 +1,8 @@
 
+/*
+* 二叉树相关概念见个人笔记
+*/
+
 //二叉树增删改查范例
 public class BinaryTreeTest {
 

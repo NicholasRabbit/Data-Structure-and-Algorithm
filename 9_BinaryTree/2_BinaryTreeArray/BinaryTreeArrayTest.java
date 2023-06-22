@@ -11,6 +11,9 @@
 * 2，其右节点的下标为：2*n + 2;
 * 3，下标为n的节点，其父节点为：(n - 1) / 2，结果取整；
 * 4，顺序二叉树通常针对的是完全二叉树;
+
+* What is full binary tree?
+* A full Binary tree is a special type of binary tree in which every parent node/internal node has either two or no children.
 */
 public class BinaryTreeArrayTest {
 
