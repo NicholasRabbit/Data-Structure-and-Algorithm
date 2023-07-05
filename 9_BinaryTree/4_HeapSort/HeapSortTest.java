@@ -1,5 +1,5 @@
 
-import java.util.*;
+import java.util.Arrays;
 
 /*
  * 堆排序
@@ -11,7 +11,7 @@ import java.util.*;
  * 大顶堆(Max heap)：在完全二叉树中父节点的值 >= 子节点，注意不比较左右子节点的大小。
  * 小顶堆(Min heap)：父节点 <= 子节点小。也是不比较左右子节点大小
  *
- * 如果是正序排序，需要把二叉树先变成大顶堆，倒叙则是小顶堆。
+ * 如果是正序排序，需要把二叉树先变成大顶堆，倒序则是小顶堆。
  *
  * */
 public class HeapSortTest{
@@ -19,13 +19,85 @@ public class HeapSortTest{
 	
 	public static void main(String[] args){
 		//注意：确保数组形成的二叉数是完全二叉树
-		int[] arr = {12,6,5,27,9,8,3};
+		int[] arr = {12,6,5,27,9,8,3,65};
+		//一，先前序遍历数组二叉树，跟后面的做对比
+		preList(0,arr);
+		
+		System.out.println();
+
+		//二，手动分步调整
+		//第一次：“3”是最后一个非叶子节点的下标
+		transferToMaxHeap(arr,3,8);
+		preList(0,arr);
+		
+		System.out.println();
+		//第二次：
 		transferToMaxHeap(arr,2,8);
-		System.out.println("first==>" + Arrays.toString(arr));
+		preList(0,arr);
 		
+		System.out.println();
+	
+		//第三次：
+		transferToMaxHeap(arr,1,8);
+		preList(0,arr);
+
+		System.out.println();
+		//第四次：这次调整最后一个根节点
+		transferToMaxHeap(arr,0,8);
+		preList(0,arr);
 		
+		System.out.println();
+			
+		//三，自动调整
+		//中间节点个数，同时也是最后一个中间节点的下标
+		int[] array = {12,6,5,27,9,8,3,65};  //防止之前结果干扰，新建一个一样的数组。
+		int c = array.length / 2 - 1;
+		for(int i = c; i >= 0; i--){
+			transferToMaxHeap(array,i,array.length);
+		}
+		System.out.println("====自动调整====");
+		preList(0,array);
+
+		System.out.println();
+
+		/*
+		* 四，最后进行从小到达排序
+		* 思路：
+		* 1,因为之前已调整为大顶堆，最大的树在顶部，只需把最大的数和最后一个数交换即可;
+		* 2,交换完成后，再把除最后一个节点外的树调整为大顶堆，再按步骤1进行调整，注意，这里的length要递减1，以排除最后一个节点。
+		*/
+		for(int k = array.length - 1; k > 0; k--){  //k指向最后一个节点
+			//I : 根节点和最后一个节点交换。
+			int temp = array[0];
+			array[0] = array[k];
+			array[k] = temp;
+			//II : 交换完成后，排除最后一个节点，再调整为大顶堆，再循环到I进行交换
+			transferToMaxHeap(array,0,k);  //这里对数组进行排序时，从下标0开始。
+		}
+		System.out.println("打印数组==>" + Arrays.toString(array));
+		
+
+
 	}
 	
+	//前序遍历二叉树数组
+	public static void preList(int index,int[] arr){
+		//入参校验
+		if(index < 0 || index >= arr.length || arr == null || arr.length == 0)
+			return;
+		//前序遍历：根左右，即先打印根节点
+		System.out.print(arr[index] + "\t");
+		//打印左节点
+		if(2*index + 1 < arr.length){
+			preList(2*index + 1,arr);
+		}
+		//打印右节点
+		if(2*index + 2 < arr.length){
+			preList(2*index + 2,arr);
+		}
+
+	
+	}
 
 	/*
 	 * 把完全二叉树调整为大顶堆
@@ -38,25 +110,32 @@ public class HeapSortTest{
 	 * */
 	public static void transferToMaxHeap(int[] arr,int i,int length){
 
-		/*
-		 * 递增条件 k = 2*k + 1表示调整是沿着数一直向左走的。
-		 * */
-
+		//递增条件 k = 2*k + 1表示调整是沿着树一直向左走的。
 		
 		//保存父节点的值到临时变量
 		int temp = arr[i];
 
-		for(int k = 2*i + 1; k < arr.length ; k = 2*k + 1){
-			
-			//比较左右子节点，左<右则下标移动
+		/*
+		* 注意：这个for循环实际是一直沿着树向左下找进行比较的。
+		* 结合个人画图重点理解第三次中的两次交换。
+		*/
+		for(int k = 2*i + 1; k < length ; k = 2*k + 1){
+		
+			//先比较左右子节点，左 < 右则下标移动
 			if(k + 1 < length && arr[k] < arr[k+1]){
-				k++;
+				k++;  //k指向右子节点，供下面和父节点比较，左右节点并不交换值，只要保证父节点是这三个节点最大值即可。
 			}
-			//跟父节点比较，比父节点大则交换
+			
+			//上步完成后，k指向的节点再跟父节点比较，比父节点大则交换。
 			if(arr[k] > temp){
+				//把较大的左子节点值赋予父节点。
 				arr[i] = arr[k];
-				i = k; //下标移动，继续调整。A
+				/*
+				* A:下标移动，向左子节点，继续循环调整。结合个人本节画的图理解。
+				*/
+				i = k; 
 			}else{
+				//一直循环，直到所有父节点都比子节点大时才会执行此语句，并中断。
 				break;
 			}
 			
