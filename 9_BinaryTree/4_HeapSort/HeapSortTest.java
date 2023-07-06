@@ -3,6 +3,12 @@ import java.util.Arrays;
 
 /*
  * 堆排序
+ * 它的最好，最坏，平均时间复杂度时O(nlog(n))，是不稳定的排序方法？？
+ * 
+ * 为什么时间复杂度是O(nlog(n))?
+ * 按最坏的时间来算的话，堆排序首先得调整成大顶堆，然后把最大的根节点放到最后，最后一个节点A放到根节点，一共调整n次，所以时间复杂度是O(n)
+ * 而调整完之后，根节点A不是最大的了，需要重新调整，最坏情况是放到最底层，耗费时间log(n)，也是树的高度。
+ * 所以时间复杂度是O(nlog(n))
  *
  * 什么是堆？
  * 堆是一种完全二叉树(Compleate Binary Tree),完全二叉树包括满二叉树。具体见个人笔记。
@@ -48,15 +54,25 @@ public class HeapSortTest{
 		
 		System.out.println();
 			
-		//三，自动调整
-		//中间节点个数，同时也是最后一个中间节点的下标
+		//三，自动调整大顶堆，并排序
 		int[] array = {12,6,5,27,9,8,3,65};  //防止之前结果干扰，新建一个一样的数组。
-		int c = array.length / 2 - 1;
-		for(int i = c; i >= 0; i--){
-			transferToMaxHeap(array,i,array.length);
-		}
 		System.out.println("====自动调整====");
 		preList(0,array);
+		autoAdjust(array);
+		System.out.println("打印数组==>" + Arrays.toString(array));
+	}
+
+	
+	public static void autoAdjust(int[] array){
+		//三，自动调整
+		//中间节点个数，同时也是最后一个中间节点的下标
+		
+		int c = array.length / 2 - 1;
+		for(int i = c; i >= 0; i--){
+			transferToMaxHeap(array,i,array.length);  //B: O(n)
+		}
+	
+		
 
 		System.out.println();
 
@@ -74,10 +90,8 @@ public class HeapSortTest{
 			//II : 交换完成后，排除最后一个节点，再调整为大顶堆，再循环到I进行交换
 			transferToMaxHeap(array,0,k);  //这里对数组进行排序时，从下标0开始。
 		}
-		System.out.println("打印数组==>" + Arrays.toString(array));
 		
-
-
+	
 	}
 	
 	//前序遍历二叉树数组
