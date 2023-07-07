@@ -32,7 +32,12 @@ public class HeapSortTest{
 		System.out.println();
 
 		//二，手动分步调整
-		//第一次：“3”是最后一个非叶子节点的下标
+		/*
+		* 第一次：“3”是最后一个非叶子节点的下标。
+		* 这里从最后一个节点开始的意图在于当调整结束之后父节点总是最大的，这样的
+		* 话，下一轮手动比较时，左子节点 < 父节点时敢于进入else语句执行break(下方DARE处)
+		* 因为第二次比较时，第一次已经调整好了，后面同理。
+		*/
 		transferToMaxHeap(arr,3,8);
 		preList(0,arr);
 		
@@ -64,9 +69,9 @@ public class HeapSortTest{
 
 	
 	public static void autoAdjust(int[] array){
+		
 		//三，自动调整
 		//中间节点个数，同时也是最后一个中间节点的下标
-		
 		int c = array.length / 2 - 1;
 		for(int i = c; i >= 0; i--){
 			transferToMaxHeap(array,i,array.length);  //B: O(n)
@@ -149,6 +154,7 @@ public class HeapSortTest{
 				*/
 				i = k; 
 			}else{
+				// DARE : 
 				//一直循环，直到所有父节点都比子节点大时才会执行此语句，并中断。
 				break;
 			}
