@@ -126,6 +126,8 @@ public class HuffManTreeTest {
 	}
 
 	public static void preShow(NodeDemo node){
+		if(node == null)
+			return;
 		node.preShow();
 	}
 	
