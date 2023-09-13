@@ -48,7 +48,7 @@ public class ArrayQueue {
 
 	//5,判断队列是否为空
 	public boolean isEmpty(){
-		//如果队尾tail等于head,说明tail没有指向任何元素，即tail下标也许从指向0时取出一个元素后，变为-1了
+		//如果队尾tail等于head,说明tail没有指向任何元素，即tail下标也需从指向0时取出一个元素后，变为-1了
 		boolean isEmpty = (head == tail);
 		return isEmpty;
 	}
@@ -64,7 +64,8 @@ public class ArrayQueue {
 			System.out.println("队列为空！没有数据！");
 			return;
 		}
-		for (int i=0; i<arr.length; i++ ){
+		//注意：这里遍历从第一个元素开始，不要全数组遍历，会把“出列”的元素也展示出来
+		for (int i = head + 1; i<arr.length; i++ ){
 			System.out.println(i + "==>" + arr[i]);
 		}
 	}

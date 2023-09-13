@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 //测试一般数组模拟的队列
 //出现的问题：把元素添加满后，再全部取出后，队列已空了，但是再实行添加操作的话显示“队列已满”
+//使用环形队列可解决此问题。
 public class QueueTest001 {
 	
 	public static void main(String[] args){

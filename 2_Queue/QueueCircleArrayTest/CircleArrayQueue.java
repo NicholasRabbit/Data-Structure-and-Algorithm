@@ -65,7 +65,8 @@ public class CircleArrayQueue {
 		}
 		//求出队列中的元素的个数
 		//tail + maxSize实际思路还是把一个新的相同数组放到后面，因此tail的下标需要再加一个maxSize, 然后再跟head求差
-		int size = (tail + maxSize - head) % maxSize;
+		//这里和maxSize取余是针对head和tail还在数组里，没开始循环的时候，例，head = 1,tail = 4，如果tail循环到head下标之前了(head = 3,tail = 0)，那么不取余数实际结果也没影响
+		int size = (tail + maxSize - head) % maxSize; 
 		return size;
 	}
 
@@ -98,7 +99,8 @@ public class CircleArrayQueue {
 	public boolean isFull(){
 		//这里tail + 1就是留了一个空位置，可以不留，不留的话，数组满后，tail会循环指向0的位置
 		//如果是 tail % maxSize == 0 则表示不留空位 
-		boolean isFull = (tail + 1) % maxSize == 0;
+		//boolean isFull = (tail + 1) % maxSize == 0;  //环形应该和head判断，不是和0
+		boolean isFull = (tail + 1) % maxSize == head;  
 		return isFull;
 	}
 
