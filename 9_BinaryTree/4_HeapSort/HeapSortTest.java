@@ -12,6 +12,7 @@ import java.util.Arrays;
  *
  * 什么是堆？
  * 堆是一种完全二叉树(Compleate Binary Tree),完全二叉树包括满二叉树。具体见个人笔记。
+ * 因此堆排序要是用完全二叉树进行。
  *
  * 什么是大顶堆，小顶堆?
  * 大顶堆(Max heap)：在完全二叉树中父节点的值 >= 子节点，注意不比较左右子节点的大小。
@@ -61,8 +62,9 @@ public class HeapSortTest{
 			
 		//三，自动调整大顶堆，并排序
 		int[] array = {12,6,5,27,9,8,3,65};  //防止之前结果干扰，新建一个一样的数组。
-		System.out.println("====自动调整====");
+		System.out.println("====自动调整前，前序遍历====");
 		preList(0,array);
+		System.out.println();
 		autoAdjust(array);
 		System.out.println("打印数组==>" + Arrays.toString(array));
 	}
@@ -73,10 +75,12 @@ public class HeapSortTest{
 		//三，自动调整
 		//中间节点个数，同时也是最后一个中间节点的下标
 		int c = array.length / 2 - 1;
-		for(int i = c; i >= 0; i--){
+		for(int i = c; i >= 0; i--){  //根据二叉树的图可知，中间节点下标减1后也是一个中间节点，所以这里i--。根节点也要调整所以: i>=0
 			transferToMaxHeap(array,i,array.length);  //B: O(n)
 		}
-	
+
+		System.out.println("====自动调整后前序遍历====");
+		preList(0,array);
 		
 
 		System.out.println();
@@ -85,7 +89,7 @@ public class HeapSortTest{
 		* 四，最后进行从小到达排序
 		* 思路：
 		* 1,因为之前已调整为大顶堆，最大的树在顶部，只需把最大的数和最后一个数交换即可;
-		* 2,交换完成后，再把除最后一个节点外的树调整为大顶堆，再按步骤1进行调整，
+		* 2,交换完成后，再把除最后一个节点外的树调整为大顶堆，再按步骤1进行调整，这样始终把最大的放到最后，即可得到正序的数组。
 		*   注意，这里的length要递减1，因为传入的数组已经是大顶堆了，而在I处又进行了交换，所以交换完成后排除最后一个节点，再进行下一轮的调整排序。
 		*/
 		for(int k = array.length - 1; k > 0; k--){  //k指向最后一个节点
@@ -94,7 +98,10 @@ public class HeapSortTest{
 			array[0] = array[k];
 			array[k] = temp;
 			//II : 交换完成后，排除最后一个节点，再调整为大顶堆，再循环到I进行交换
-			transferToMaxHeap(array,0,k);  //这里对数组进行排序时，从下标0开始。
+			transferToMaxHeap(array,0,k);  //这里对数组进行排序时，从下标0开始。 
+			/*上面下标为什么从0开始？而不是新数组的中间节点？
+			 *因为除了交换之后，除了根节点，其它的都已经是调整好的。
+			 * */
 		}
 		
 	
@@ -130,8 +137,6 @@ public class HeapSortTest{
 	 * */
 	public static void transferToMaxHeap(int[] arr,int i,int length){
 
-		//递增条件 k = 2*k + 1表示调整是沿着树一直向左走的。
-		
 		//保存父节点的值到临时变量
 		int temp = arr[i];
 
@@ -139,9 +144,9 @@ public class HeapSortTest{
 		* 注意：这个for循环实际是一直沿着树向左下找进行比较的。
 		* 结合个人画图重点理解第三次中的两次交换。
 		*/
-		for(int k = 2*i + 1; k < length ; k = 2*k + 1){
+		for(int k = 2*i + 1; k < length ; k = 2*k + 1){   //递增条件 k = 2*k + 1表示调整是沿着树一直向左走的。
 		
-			//先比较左右子节点，左 < 右则下标移动
+			//先比较左右子节点，左 < 右则下标移动。arr[k]:左子节点，arr[k+1]:右子节点'
 			if(k + 1 < length && arr[k] < arr[k+1]){
 				k++;  //k指向右子节点，供下面和父节点比较，左右节点并不交换值，只要保证父节点是这三个节点最大值即可。
 			}
