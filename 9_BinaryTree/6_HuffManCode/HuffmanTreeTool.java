@@ -26,6 +26,11 @@ public class HuffmanTreeTool{
 		System.out.println("排序后====================");
 		showArray(nodes);
 
+		//3,把排序好的数组组装成一个霍夫曼树
+		buildHuffmanTree(nodes);
+
+
+
 
 		return null;
 		
@@ -140,6 +145,46 @@ public class HuffmanTreeTool{
 		}
 
 		return true;
+	
+	}
+
+
+	//根据正序数组，创建霍夫曼树
+	public static TreeNode buildHuffmanTree(TreeNode[] nodes){
+
+		
+
+		//for(int i = 0; i < nodes.length; i++){
+			//构建父节点
+			TreeNode parentNode = new TreeNode((byte)1,nodes[0].weight + nodes[1].weight);
+			//父节点设置左右子节点
+			parentNode.left = nodes[0];
+			parentNode.right = nodes[1];
+			
+			nodes[1] = parentNode;
+
+			TreeNode[] copyNodes =  copyToNewArray(nodes,1);
+			//
+			System.out.println("新数组========");
+			showArray(copyNodes);
+
+		//}
+		
+		return null;
+	
+	}
+
+	//复制原数组到新数组。此方法是因为本人不想把数组转链表排序，因此练习用的，后期复习霍夫曼编码时不需关心此步骤，专注霍夫曼编码的核心流程。
+	public static TreeNode[] copyToNewArray(TreeNode[] srcNodes,int beginIndex){
+		//根据推理可知，去除数组前两位元素后组成一个树，再把树的父节点放回去。那么新的数组只是把下标0的节点去掉接口，1的位置放父节点。
+		//因此复制的新数组容量比原来减 1。
+		TreeNode[] desNodes = new TreeNode[srcNodes.length - 1];
+		for(int i = 0; beginIndex < srcNodes.length; beginIndex++){
+			desNodes[i] = srcNodes[beginIndex];
+			i ++;
+		}
+
+		return desNodes;
 	
 	}
 	
