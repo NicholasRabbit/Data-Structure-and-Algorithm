@@ -17,7 +17,7 @@ public class TreeNode{
 	//前序遍历。根，左，右。
 	public void preList(){
 		//打印根节点
-		System.out.println(this);
+		System.out.print(this + "\t");
 		//左节点
 		if(this.left != null){
 			this.left.preList();

@@ -19,15 +19,17 @@ public class HuffmanTreeTool{
 		System.out.println();
 		//2.1 首先需把树调整成大顶堆。
 		System.out.println("调整后====================");
-		adjust(nodes);
+		HeapSortTool.adjust(nodes);
 		showArray(nodes);
 		//2.2 排序
-		heapSort(nodes);
+		HeapSortTool.heapSort(nodes);
 		System.out.println("排序后====================");
 		showArray(nodes);
 
-		//3,把排序好的数组组装成一个霍夫曼树
-		buildHuffmanTree(nodes);
+		//3,把排序好的数组组装成一个霍夫曼编码树
+		TreeNode root = buildHuffmanTree(nodes);
+		//前序遍历，查看结果
+		root.preList();
 
 
 
@@ -79,104 +81,39 @@ public class HuffmanTreeTool{
 	}
 
 
-	/*
-	 * 循环调整一个中间节点及其下面的所有子节点。
-	 * 把二叉树调整成大顶堆
-	 * i : 中间节点下标
-	 * length : 数组长度
-	 * */
-	public static void transferToMaxHeap(int i, int length, TreeNode[] nodes){
-		
-		//保存父节点到临时变量
-		TreeNode temp = nodes[i];
-
-		for(int left = 2 * i + 1; left < length; left = 2 * left + 1){
-			//1,先比较左右子节点
-			//left + 1是右节点下标。
-			if(left + 1 < length && nodes[left].weight < nodes[left + 1].weight){
-				left ++;
-			}
-			//2,比较父节点和较大的子节点，子节点大则交换。
-			if(nodes[left].weight > temp.weight){
-				//交换
-				nodes[i] = nodes[left];
-				//下标移动到到较大的子节点，以其为父节点进行新一轮的比较。
-				i = left;   
-			}else{
-				break;
-			}
-
-			//3,把原父节点移动到子节点
-			nodes[i] = temp;
-
-		}
-
-	
-	}
-
-
-	//自动调整整个树为大顶堆。
-	public static void adjust(TreeNode[] nodes){
-		//i:最后一个中间节点的下标。
-		for(int i = nodes.length / 2 - 1; i >= 0; i --){   //注意：这里是 i >= 0，切记不要忘了等号"="，因为根节点也要比较。
-			transferToMaxHeap(i,nodes.length,nodes);
-		}
-	
-	}
-
-	/*
-	 * 堆排序
-	 * 步骤：
-	 * 1，首先把最大的根节点发到树的最后，即数组最后一位。
-	 * 2，最大的一个放到最后了，然后把剩下的再调整成大顶堆。
-	 * 3，重复1，2步骤，最后即可得到一个正序的数组。
-	 * */
-	public static boolean heapSort(TreeNode[] nodes){
-		//入参校验
-		if(nodes == null || nodes.length == 0){
-			return false;
-		}
-
-		for(int len = nodes.length - 1; len > 0; len--){
-			TreeNode temp = nodes[0];
-			nodes[0] = nodes[len];
-			nodes[len] = temp;
-			transferToMaxHeap(0,len,nodes);  //这里为什么传入0，而不是新数组的最后一个中间节点？详见堆排序HeapSortTest.java中的解释。
-		}
-
-		return true;
-	
-	}
-
 
 	//根据正序数组，创建霍夫曼树
 	public static TreeNode buildHuffmanTree(TreeNode[] nodes){
 
-		
-
-		//for(int i = 0; i < nodes.length; i++){
-			//构建父节点
-			TreeNode parentNode = new TreeNode((byte)1,nodes[0].weight + nodes[1].weight);
+		//中断循环条件length - 1,即最后剩余两个元素，比较一次后，把父节点放回数组，就终止。
+		int length = nodes.length - 1;  //注意：不要把 i < nodes.length - 1写到for的判断式中，因为nodes一直在变化，导致不能比较完。
+		for(int i = 0; i < length; i++){
+			//(1)构建父节点，父节点设置无效ASCII码为-1
+			TreeNode parentNode = new TreeNode((byte)-1,nodes[0].weight + nodes[1].weight);
 			//父节点设置左右子节点
 			parentNode.left = nodes[0];
 			parentNode.right = nodes[1];
-			
+			//(2)把父节点放回原数组，替代第二个元素，下面删除第一个元素后，就相当于移除了下标0和1上的元素。
 			nodes[1] = parentNode;
+			//去除原数组下标0的元素
+			nodes = copyToNewArray(nodes,1);
+			//查看结果
+			//System.out.println("新数组========");
+			//showArray(nodes);
+			
+			//(3)新数组排序
+			HeapSortTool.heapSort(nodes);
 
-			TreeNode[] copyNodes =  copyToNewArray(nodes,1);
-			//
-			System.out.println("新数组========");
-			showArray(copyNodes);
-
-		//}
+		}
 		
-		return null;
+		return nodes[0];
 	
 	}
 
-	//复制原数组到新数组。此方法是因为本人不想把数组转链表排序，因此练习用的，后期复习霍夫曼编码时不需关心此步骤，专注霍夫曼编码的核心流程。
+	//复制原数组到新数组。此方法是因为本人不想把数组转链表排序，因此使用手动复制创建新数组的方式，
+	//后期复习霍夫曼编码时不需关心此步骤，专注霍夫曼编码的核心流程。
 	public static TreeNode[] copyToNewArray(TreeNode[] srcNodes,int beginIndex){
-		//根据推理可知，去除数组前两位元素后组成一个树，再把树的父节点放回去。那么新的数组只是把下标0的节点去掉接口，1的位置放父节点。
+		//根据推理可知，去除数组前两位元素后组成一个树，再把树的父节点放回去。那么新的数组只是把下标0的节点去掉即可，1的位置放父节点。
 		//因此复制的新数组容量比原来减 1。
 		TreeNode[] desNodes = new TreeNode[srcNodes.length - 1];
 		for(int i = 0; beginIndex < srcNodes.length; beginIndex++){
