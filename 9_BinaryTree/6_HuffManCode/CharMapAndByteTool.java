@@ -46,12 +46,13 @@ public class CharMapAndByteTool{
 		byte[] arr = new byte[size];
 
 		//3，按照每8位一节，截断原字符串
+		//下面对arr数组循环添加，实际循环字符串也可以。
 		int index = 0;  //字符串的初始下标。
 		for(int i = 0; i < arr.length; i++){
 			String str = "";
-			//如果字符串下标超过其总长，说明最后剩的不够8位，则有多少就截断多少。
-			if(index > codeString.length()){
-				str = codeString.substring(0);
+			//注意这里是 index + 8, 如果index + 8超过其总长，说明最后剩的不够8位，则有多少就截断多少。
+			if(index + 8 > codeString.length()){
+				str = codeString.substring(index);
 			}else{
 				//未超出长度的情况。
 				str = codeString.substring(index,index + 8);  //包前不包后
@@ -60,9 +61,10 @@ public class CharMapAndByteTool{
 			//把String转化为byte类型的二进制,放到数组中。
 			/*
 			 * 下行报错！！这里不可用Byte类型来转换二进制，因为byte范围(-128~127)，有的编码是8各1是超限的。
-			 * 用byte强转不会产生误差，因为地计算机底层用加法表示减法，8个1是255, byte范围内用128~255表示-128~-1
+			 * 因此需要强制转换，强转不会造成误差，因为255(1111 1111)强转后得到-1，而在计算机底层它就是代表-1，
 			 * */
 			//byte b = Byte.parseByte(str,2);   
+
 			byte b = (byte)Integer.parseInt(str,2);
 			arr[i] = b;
 
@@ -74,6 +76,25 @@ public class CharMapAndByteTool{
 		return arr;
 	}
 
+
+
+	//把字符串每8个隔开打印
+	public static boolean printBytesString(String str){
+		for(int i = 0; i < str.length(); i += 8){
+			String subStr = "";
+			if(i + 8 > str.length()){
+				subStr = str.substring(i);
+			}else{
+				subStr = str.substring(i,i + 8);
+			}
+			System.out.print(subStr + ", ");
+
+		}
+		System.out.println();
+
+		return true;
+	
+	}
 
 }
 

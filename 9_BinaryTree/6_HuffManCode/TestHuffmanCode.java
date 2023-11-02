@@ -12,7 +12,7 @@ import java.util.*;
  * 具体思路参照本节个人笔记。
  *
  * */
-public class HuffmanCodeTest {
+public class TestHuffmanCode{
 
 	public static void main(String[] args){
 		//String sentence = "aaa bb hhh find her. She has a slim figure and a slender waist.";
@@ -63,17 +63,35 @@ public class HuffmanCodeTest {
 		 * 生成的霍夫曼编码字符串，实际长度可能比原来的句子还长，
 		 * 因此还需要处理，把“0101”这样的字符串按照byte类型的8位截开，转为byte类型的数组。
 		 * */
+		//拼接成字符串
 		StringBuilder encodeBuilder = new StringBuilder();
 		for(int i = 0; i < contentBytes.length; i++){
 			encodeBuilder.append(encodeMap.get(contentBytes[i]));
 		}
 		System.out.println("encode String==>" + encodeBuilder.toString());
+		CharMapAndByteTool.printBytesString(encodeBuilder.toString());	//把字串八位一组隔开打印，方便验证结果
+
+		//把字符串每8位一个截开，转换为byte存进数组，这样就实现了数据压缩。
+		//重点注意：！！ 
+		/* 假如中间某个8位的编码是正数，在byte范围内-128~127，实际使用128~255来表示-128~-1，0~127还表示他们本身。
+		 * 因此出现一个问题，正数最大才127，即01111 1111，即正数前面总有0打头，这个字符串转换成byte的数值时最前面的0是不参与计算的，
+		 * 但是这个0还原成字符串的时候要还原回来。因为Integer.toBinaryString(127)得到 111,1111（7个1）,
+		 * 所以要用 1,0000,0000(256)和 111,1111进行与(|)运算，得到 1,0111,1111。这样后面转会二进制字符串的时候就可以还原打头的0了。
+		 * 具体结合解码代码理解。
+		 *
+		 * */
 		byte[] encodeBytes = CharMapAndByteTool.stringToByteArray(encodeBuilder.toString());
 		System.out.println("encode bytes: " + Arrays.toString(encodeBytes));
 
 		//对比压缩前后长度：
 		System.out.println("contentBytes' length==>" + contentBytes.length);   //原长：26
 		System.out.println("encode bytes' length==>" + encodeBytes.length);    //压缩后：9，压缩比例 17/16=0.65
+																			   
+		/*
+		 * 五，解密霍夫曼编码
+		 *
+		 * */
+		DecodeHuffmanCode.decodeHuffman(encodeBytes);
 	
 	}
 }
