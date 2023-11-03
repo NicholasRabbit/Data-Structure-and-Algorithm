@@ -13,6 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+ * 个人注：
+ * 注意：老师源码把霍夫曼长字符串最后的一段转为byte再解码的逻辑错误。如果最后是0开头的，如"011"，那么byte是3，还原老师没有补前面的0，
+ * 按照老师的代码逻辑会得到“11”，而老师的例子中恰好最后是“11100”，前面没有0，导致没有发现这个bug。
+ *
+ * */
 public class HuffmanCode {
 
 	public static void main(String[] args) {
