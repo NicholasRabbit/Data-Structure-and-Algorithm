@@ -68,7 +68,7 @@ public class TestHuffmanCode{
 		/*
 		 * 四，把原文加密成霍夫曼编码的字符串。
 		 * 生成的霍夫曼编码字符串，实际长度可能比原来的句子还长，
-		 * 因此还需要处理，把“0101”这样的字符串按照byte类型的8位截开，转为byte类型的数组。
+		 * 因此还需要处理，把“0101...”这样的字符串按照byte类型的8位截开，转为byte类型放到数组。
 		 * */
 		//拼接成字符串
 		StringBuilder encodeBuilder = new StringBuilder();
@@ -87,6 +87,11 @@ public class TestHuffmanCode{
 		 * 这样后面转会二进制字符串的时候就可以还原打头的0了。
 		 * 具体结合解码代码DecodeHuffmanCode.java理解。
 		 *
+		 * 还有一种特殊情况：
+		 * 最后一个字符串是无法按照以上的逻辑补0的，如果最后正好剩8位，是可以这样，最后剩"11000"这样“1”打头的不会出现错误。
+		 * 但是如“001101(13)”这样的编码转换成byte数值，再解码转换回来，前面的0就没有了，
+		 * 解码错误。老师代码就是出现这bug。
+		 * 
 		 * */
 		byte[] encodeBytes = CharMapAndByteTool.stringToByteArray(encodeBuilder.toString());
 		System.out.println("encode bytes: " + Arrays.toString(encodeBytes));

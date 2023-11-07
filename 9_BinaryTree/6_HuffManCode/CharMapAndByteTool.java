@@ -25,6 +25,9 @@ public class CharMapAndByteTool{
 
 
 	//把“0101...”这样的字符串转换为byte[]
+	/* 注意：如果最后一个是0开头的字符串，如"001101(13)"，转换为byte数值是13，再转换为二进制就是"1101"，
+	 * 前面的两个“0”就丢掉了，导致解码错误。需要采取方法避免这种情况
+	 * */
 	public static byte[] stringToByteArray(String codeString){
 		//入参校验
 		if(codeString == null || "".equals(codeString))
@@ -54,7 +57,7 @@ public class CharMapAndByteTool{
 			if(index + 8 > codeString.length()){
 				str = codeString.substring(index);
 			}else{
-				//未超出长度的情况。
+				//未超出长度的情况,或者最后刚好剩下8位。例{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15} 0+8=8,8+8=16(=length())
 				str = codeString.substring(index,index + 8);  //包前不包后
 			}
 
