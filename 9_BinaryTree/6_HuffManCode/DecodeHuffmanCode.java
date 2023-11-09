@@ -18,24 +18,28 @@ public class DecodeHuffmanCode {
 
 		for(int i = 0; i < codeBytes.length; i++){
 			//如果不是最后一个元素，则设置位true，下面要补0
-			boolean isMiddle = (i != codeBytes.length);
+			boolean isMiddle = (i != codeBytes.length - 1);
 			String str = byteToString(isMiddle, codeBytes[i]);
 			builder.append(str);
 		}
+
+		//打印，验证结果
+		System.out.println("after decoding==>" + builder.toString());
+		CharMapAndByteTool.printBytesString(builder.toString());
 
 		return builder.toString();
 		
 	}
 
 
-	//把单个字符还原为字符串
+	//把单个使用byte类型数值表示的字符还原为字符串
 	public static String byteToString(boolean isMiddle, byte byteCode){
 
 		/*
-		 * 注意：中间的byte如果大于等于0的话，要把二进制字符串前面的0不回来。具体参照TestHuffmanCode.java解码处的个人解释。
+		 * 注意：中间的byte如果大于等于0的话，要把二进制字符串前面的0补回来。具体参照TestHuffmanCode.java解码处的个人解释。
 		 * 如果不是最后一个元素，不管是不是正数，都跟1,0000,0000(256)按位与(|)，即使是负数，其后面8位按位与后还是不变，
 		 * 而正数则可以把前面的0补齐，因为Integer.toBinaryString(..)方法对例如 1111,1111(127)这样的正数返回的二进制字符串不会补齐前面的0，来凑够8位。
-		 * 如果是最后一位元素，即使是正数，toBinaryString()解码不够8位，项上面的127，那么也不用补0，因为原来就就是
+		 * 如果是最后一位元素，即使是正数，toBinaryString()解码不够8位，项上面的127，那么也不用补0，因为原来就是没有0。
 		 * */
 		int temp = byteCode;
 		if(isMiddle){
@@ -43,13 +47,20 @@ public class DecodeHuffmanCode {
 		}
 
 		//这里获取到的是int类型长度的二进制字符串，共32位。需要截取最后的8位。
-		String stringDecode = Integer.toBinaryString(byteCode);
+		String stringDecode = Integer.toBinaryString(temp);
 		//数组中间的元素，非最后的都要截取字符串
 		if(isMiddle){
 			return stringDecode.substring(stringDecode.length() - 8);
 		}else{
-			//最后一个元素即使是正数，例如：111,1111(127)这样的7位，toBinaryString(127)得到的也是原来字符串就是7位，直接返回。
-			return stringDecode;
+			/*
+			* 如果最后一个元素是正数，例如：111,1111(127)这样的7位，Integer.toBinaryString(127)得到的也是原来字符串就是7位，直接返回。
+			* 如果最后是负数，此方法得到的是32位的字符串，因为这是针对int类型的操作，例，-1用int的二进制表示就是"11111111,11111111,11111111,11111111"
+			* 所以负数也需要截取
+			* */
+            if(byteCode < 0)
+				return stringDecode.substring(stringDecode.length() - 8);
+            else
+				return stringDecode;
 
 		}
 

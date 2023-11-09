@@ -219,6 +219,38 @@ n：最后一个节点的下标，arr.length : 线索化后数组长度，也是
 
 - 使用原来的递归遍历方式会有问题，应采用新的方式，利用前驱后继节点来遍历二叉树，而且这种方式比原来的递归方式效率高。
 
+### 9，BST
+
+BST: Binary Search/Sort Tree: 二叉搜索树
+
+定义？
+
+二叉搜索树指中间节点，即父节点的值小于其左子树及左子树的所有子节点，大于其右子树及右子树的所有子节点。
+
+简要概况及时间复杂度，空间复杂度：
+
+```txt
+    Binary search tree
+Type	tree
+Invented	1960
+Invented by	P.F. Windley, A.D. Booth, A.J.T. Colin, and T.N. Hibbard
+Time complexity in big O notation
+Operation	Average	 Worst case
+Search	   O(log n)	  O(n)
+Insert	   O(log n)	  O(n)
+Delete	   O(log n)	  O(n)
+	Space complexity
+Space	   O(n)	      O(n)
+```
+
+为什么用二叉树？有什么优点？
+
+二叉树的查找等同于二分查找算法，在平均情况下的时间复杂度是$O(log_2n)$，即根节点的值属于整个树里节点值的中间部分时，最差时间复杂度是$O(n)$, 跟链表类似，即所有节点都在根节点的一侧。
+
+时间复杂度跟树的深度有关系，对于满二叉树来说，从上到下的节点依次是1，2，4，8。可知$log_2n$约等于树的深度。
+
+<img src="note-images/1699508291444.png" alt="1699508291444" style="zoom: 33%;" />
+
 
 
 ## 二，算法

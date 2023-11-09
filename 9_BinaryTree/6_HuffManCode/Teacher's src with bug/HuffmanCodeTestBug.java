@@ -10,7 +10,7 @@ import java.util.*;
  * 注意：老师源码把霍夫曼长字符串最后的一段转为byte再解码的逻辑错误。如果最后是0开头的，如"011"，那么byte是3，还原老师没有补前面的0，
  * 按照老师的代码逻辑会得到“11”，而老师的例子中恰好最后是“11100”，前面没有0，导致没有发现这个bug。
  * 本代码本人已添加打印语句，并通过修改原文，测试除了这个问题。
- * 见，66行
+ * 见，68行
  * */
 public class HuffmanCodeTestBug {
 
@@ -66,6 +66,8 @@ public class HuffmanCodeTestBug {
 		}
 
 		System.out.println("length of decode string ==> " + stringBuilder.length());   //解码后的字符串长度变小了。。。解码错误
+		System.out.print("解码后的编码：");
+        CharMapAndByteTool.printBytesString(stringBuilder.toString());  //打印解码后的编码，最后一个前面的0没有了。
 
 		//把字符串安装指定的赫夫曼编码进行解码
 		//把赫夫曼编码表进行调换，因为反向查询 a->100 100->a
@@ -160,6 +162,9 @@ public class HuffmanCodeTestBug {
 		}
 		
 		System.out.println("length of encode string ==> " + stringBuilder.toString().length());
+
+		//测试老师bug
+		System.out.print("打印原编码：");
 		CharMapAndByteTool.printBytesString(stringBuilder.toString());
 		
 		//将 "1010100010111111110..." 转成 byte[]

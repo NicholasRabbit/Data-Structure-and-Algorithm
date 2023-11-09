@@ -23,7 +23,8 @@ public class TestHuffmanCode{
 
 	public static void main(String[] args){
 		//String sentence = "aaa bb hhh find her. She has a slim figure and a slender waist.";
-		String sentence = "aaaa bb c dddd hhhhhhh jjk";
+		//String sentence = "aaaa bb c dddd hhhhhhh jjk";
+		String sentence = "aaaa bb c dddd hhhhhhh jjk hello";   //使用这个会测出91行所提处的bug.
 	 	buildTree(sentence);
 	}
 
@@ -88,9 +89,11 @@ public class TestHuffmanCode{
 		 * 具体结合解码代码DecodeHuffmanCode.java理解。
 		 *
 		 * 还有一种特殊情况：
-		 * 最后一个字符串是无法按照以上的逻辑补0的，如果最后正好剩8位，是可以这样，最后剩"11000"这样“1”打头的不会出现错误。
-		 * 但是如“001101(13)”这样的编码转换成byte数值，再解码转换回来，前面的0就没有了，
+		 * 最后一个字符串是无法按照以上的逻辑补0的，如果最后正好剩8位，是可以这样，或者最后剩"11000"这样“1”打头的不会出现错误。
+		 * 但是如“001101(13)”这样的编码转换成byte数值，再解码转换回来，前面的0就没有了。
 		 * 解码错误。老师代码就是出现这bug。
+		 * 解决办法：
+		 * 
 		 * 
 		 * */
 		byte[] encodeBytes = CharMapAndByteTool.stringToByteArray(encodeBuilder.toString());
