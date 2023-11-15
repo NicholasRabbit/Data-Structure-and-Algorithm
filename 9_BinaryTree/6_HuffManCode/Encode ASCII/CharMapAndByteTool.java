@@ -2,27 +2,19 @@
 import java.util.*;
 
 public class CharMapAndByteTool{
-
-	//计算字符在句子中出现的次数，放到Map中
-	public static Map<Byte,Integer> countChars(byte[] byteArray){
-		Map<Byte,Integer> countMap = new HashMap<>();
-		int count = 0;
-		for(int i = 0; i < byteArray.length; i++){
-			//有的话，次数加1
-			if(countMap.containsKey(byteArray[i])){
-				count = countMap.get(byteArray[i]);
-				count ++;
-				countMap.put(byteArray[i],count);
-			}else{
-				//第一次放入Map
-				count = 1;
-				countMap.put(byteArray[i],count);
-			}
-
+	
+	//使用霍夫曼编码加密原句子。生成字符串
+	public static String createStringCode(byte[] contentBytes,Map<Byte,String> encodeMap){
+		StringBuilder encodeBuilder = new StringBuilder();
+		for(int i = 0; i < contentBytes.length; i++){
+			//获取各个字符对应的霍夫曼编码，进行拼接
+			String huffmamCode = encodeMap.get(contentBytes[i]);
+			encodeBuilder.append(huffmamCode);
 		}
-		return countMap;
+		System.out.println("encode String==>" + encodeBuilder.toString());
+		CharMapAndByteTool.printBytesString(encodeBuilder.toString());	//把字串八位一组隔开打印，方便验证结果
+		return encodeBuilder.toString();
 	}
-
 
 	//把“0101...”这样的字符串转换为byte[]
 	/* 注意：如果最后一个是0开头的字符串，如"001101(13)"，转换为byte数值是13，再转换为二进制就是"1101"，
@@ -46,7 +38,8 @@ public class CharMapAndByteTool{
 		//int size = (countChars.length + 7) / 8;
 
 		//2，由上步得得byte数组的长度
-		byte[] arr = new byte[size + 1];  //这里不写size而写size + 1，因为数组最后一个要存标记，来表示最后一节编码是否0开头。
+		byte[] arr = new byte[size]; 
+		//byte[] arr = new byte[size + 1];  //这里不写size而写size + 1，因为数组最后一个要存标记，来表示最后一节编码是否0开头。
 
 		//3，按照每8位一节，截断原字符串
 		//下面对arr数组循环添加，实际循环字符串也可以。
@@ -68,10 +61,11 @@ public class CharMapAndByteTool{
 			 * */
 			//byte b = Byte.parseByte(str,2);   
 
-			/* 重点：处理最后一节编码是“0”开头的情况。
+			/* 方法错误， 重点：处理最后一节编码是“0”开头的情况。
 			 * 1,如果是最后一个，而且以0开头，就把开头的0换成1，转换为数值；
 			 * 2,再向数组最后一个位置添加一个元素，不参与编码，只做标记，“0”表示最后一节编码开头0，需要替换回来，“1”表示最后一节编码开头是1，不用替换。
 			 * */
+			/*
 			if(index + 8 >= codeString.length()){
 				if(str.startsWith("0")){
 					str.replaceFirst("0","1");  //替换第一个“0”
@@ -81,6 +75,7 @@ public class CharMapAndByteTool{
 				}	
 				i ++;  //这里自加1，数组最后一位已添加，不用再循环添加了。
 			}
+			*/
 
 			byte b = (byte)Integer.parseInt(str,2);
 			arr[i] = b;
@@ -111,6 +106,26 @@ public class CharMapAndByteTool{
 
 		return true;
 	
+	}
+
+	//遍历权值Map
+	public static void showMap(Map<Byte,Integer> weightMap){
+		System.out.println("=========weightMap============");
+		Set<Map.Entry<Byte,Integer>> entrySet = weightMap.entrySet();
+		Iterator<Map.Entry<Byte,Integer>> it = entrySet.iterator();
+		while(it.hasNext()){
+			Map.Entry<Byte,Integer> entry = it.next();
+			System.out.println(entry.getKey() + ":" + entry.getValue());
+		}
+	}
+
+	//遍历编码后的Map
+	public static void showEncodeMap(Map<Byte,String> encodeMap){
+		System.out.println("=========encodeMap============");
+		Set<Map.Entry<Byte,String>> huffmanEntry = encodeMap.entrySet();
+		for(Map.Entry<Byte,String> entry : huffmanEntry){
+			System.out.println(entry.getKey() + ":" + entry.getValue());
+		}
 	}
 
 }

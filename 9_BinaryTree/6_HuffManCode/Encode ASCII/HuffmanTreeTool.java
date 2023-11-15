@@ -45,15 +45,12 @@ public class HuffmanTreeTool{
 
 
 	//获取霍夫曼树
-	public static TreeNode getTree(Map<Byte,Integer> countMap){
+	public static TreeNode getHuffmanTree(List<TreeNode> nodeList){
 
-		//1,先获取节点集合
-		List<TreeNode> list = getList(countMap);
-		System.out.println("node list==>" + list);
+		//1,转换成数组，方便操作。
+		System.out.println("node list==>" + nodeList);
 		System.out.println("====================");
-		
-		//转换成数组，方便操作。
-		TreeNode[] nodes = list.toArray(new TreeNode[]{});  
+		TreeNode[] nodes = nodeList.toArray(new TreeNode[]{});  
 
 		//2,排序，使用堆排序的方法，为了复习。不使用老师所用的Collection.sort(..)
 		preList(0,nodes);  //先前序遍历打印，方便和排序后的对比
@@ -73,13 +70,13 @@ public class HuffmanTreeTool{
 		//前序遍历，查看结果
 		root.preList();
 
-
 		return root;
 		
 	}
 
+
 	//把字符和次数map包装成树的节点，放到List集合中
-	public static List<TreeNode> getList(Map<Byte,Integer> countMap){
+	public static List<TreeNode> getNodeList(Map<Byte,Integer> countMap){
 		List<TreeNode> list = new ArrayList<>();
 		for(Map.Entry<Byte,Integer> entry : countMap.entrySet()){
 			list.add(new TreeNode(entry.getKey(),entry.getValue()));	
@@ -89,6 +86,25 @@ public class HuffmanTreeTool{
 	
 	}
 
+	//计算字符在句子中出现的次数，放到Map中
+	public static Map<Byte,Integer> getWeightMap(byte[] byteArray){
+		Map<Byte,Integer> weightMap = new HashMap<>();
+		int count = 0;
+		for(int i = 0; i < byteArray.length; i++){
+			//有的话，次数加1
+			if(weightMap.containsKey(byteArray[i])){
+				count = weightMap.get(byteArray[i]);
+				count ++;
+				weightMap.put(byteArray[i],count);
+			}else{
+				//第一次放入Map
+				count = 1;
+				weightMap.put(byteArray[i],count);
+			}
+
+		}
+		return weightMap;
+	}
 
 	//前序遍历线索化后的二叉树，即以遍历二叉树的形式遍历数组。
 	//下标i的父节点的左子节点下标是2*i + 1,右子节点 2*i + 2
