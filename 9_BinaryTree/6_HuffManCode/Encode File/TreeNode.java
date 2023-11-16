@@ -1,6 +1,6 @@
 public class TreeNode{
 	//暂时不用private，方便调用。
-	Byte ascCode;
+	byte ascCode;
 	int weight;
 	TreeNode left;   //左子节点
 	TreeNode right;  //右子节点
@@ -9,7 +9,7 @@ public class TreeNode{
 	
 	}
 	
-	public TreeNode(Byte ascCode,int weight){
+	public TreeNode(byte ascCode,int weight){
 		this.ascCode = ascCode;
 		this.weight = weight;
 	}

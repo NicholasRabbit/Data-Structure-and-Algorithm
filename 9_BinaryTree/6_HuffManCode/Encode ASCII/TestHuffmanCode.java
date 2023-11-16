@@ -61,7 +61,6 @@ public class TestHuffmanCode{
 		 * */
 		TreeNode root = HuffmanTreeTool.getHuffmanTree(nodeList);
 
-
 		/*
 		 * 三，生成每个字符及其对应的霍夫曼编码，放到Map中。
 		 * 向左一步记作“0”，向右一步记作“1”
