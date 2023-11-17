@@ -92,6 +92,23 @@
 	}
 ```
 
+3，递归方法中不要都写"if ...else if "，而没有"else"，导致不往下递归了。
+
+```java
+	public TreeNode getParent(TreeNode child){
+		if(this.left.no == child.no)
+			return this;
+		if(child.no < this.left.no && this.left != null)
+			return this.left.getParent(child);
+		//这里应写作"else"，导致前面的不符合条件就直接return了，不往下递归了！！
+        else if(错误)(child.no >= this.right.no && this.right != null)
+			return this.right.getParent(child);
+        
+        return null; 
+	}
+
+```
+
 
 
 
