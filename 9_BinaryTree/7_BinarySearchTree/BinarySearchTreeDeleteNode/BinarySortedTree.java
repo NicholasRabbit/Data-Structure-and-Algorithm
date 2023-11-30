@@ -9,16 +9,50 @@ public class BinarySortedTree{
 	public boolean deleteNode(int no){
 		//First step: find the node if it exists in the tree.
 		TreeNode target = getTargetNode(no);
+
+		/*
+		 * There are three kinds of the nodes which are going to be deleted.
+		 * 1, a leaf node;
+		 * 2, a parent node which has only one child;
+		 * 3, a parent node which has two children;
+		 * */
 		if(target != null){
-			//Leaf
+			//To get the parent node of the node to be deleted.
+			TreeNode parent = getParentNode(target);			
+			//1,To delete a leaf.
 			if(isLeaf(target)){
-				TreeNode parent = getParentNode(target);			
-				//Don't forgent to verify whether the left or right node is null or not.
+				//Don't forget to verify whether the left or right node is null or not.
 				if(parent.left != null && parent.left.no == target.no)
 					parent.left = null;
 				else if(parent.right != null && parent.right.no == target.no)
 					parent.right = null;
+			}else if(target.left != null && target.right != null){
+				//3, The target has two children
+				
+			}else{
+
+				//2, The target has only child.
+
+				//2.1 If the only child is on left.
+				if(target.left != null){
+					//If the target is on left.
+					if(parent.left != null && parent.left.no == target.no)
+						parent.left = target.left;
+					else
+						//If the target is on right.
+						parent.right = target.left;
+				}else{
+				//2.2 If the only child is on right
+					//If the target is on left.
+					if(parent.left != null && parent.left.no == target.no)
+						parent.left = target.right;
+					else
+						//If the target is on right.
+						parent.right = target.right;
+
+				}
 			}
+
 		}
 
 
@@ -77,11 +111,7 @@ public class BinarySortedTree{
 			return false;
 	}
 
+
+
 }
 
-//Throw an exception when node is null.
-class InvalidArgumentException extends RuntimeException{
-	public InvalidArgumentException(String s){
-		super(s);
-	}
-}

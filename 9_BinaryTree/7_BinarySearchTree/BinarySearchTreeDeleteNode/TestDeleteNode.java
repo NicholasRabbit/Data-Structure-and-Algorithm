@@ -13,10 +13,17 @@ public class TestDeleteNode{
 
 		bst.infixList();
 
-		//delete 4
-		bst.deleteNode(13);
-		bst.deleteNode(4);
-		bst.deleteNode(7);
+		System.out.println("delete==================");
+
+		//To delete a leaf.
+		//bst.deleteNode(13);
+		//bst.deleteNode(4);
+		//bst.deleteNode(7);
+
+		//To delete a node with one child.
+		bst.deleteNode(14);
+		bst.deleteNode(4);  //delete a leaf and 6 has only one child.
+		bst.deleteNode(6);  
 
 		bst.infixList();
 
