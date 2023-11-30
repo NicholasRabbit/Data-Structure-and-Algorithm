@@ -2,7 +2,7 @@
 
 public class TreeNode {
 
-	int no;
+	int no;  // no = value
 	TreeNode left;
 	TreeNode right;
 

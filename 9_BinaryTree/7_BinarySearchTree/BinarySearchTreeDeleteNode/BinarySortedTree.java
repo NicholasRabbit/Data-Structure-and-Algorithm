@@ -28,6 +28,32 @@ public class BinarySortedTree{
 					parent.right = null;
 			}else if(target.left != null && target.right != null){
 				//3, The target has two children
+				//To get node with minimum value on the right tree.
+				TreeNode minNodeOfRight = getMinNode(target.right);
+
+				/* My code is right but it is not so simple.
+				//To get parent of the minimum node.
+				TreeNode parentOfMin = getParentNode(minNodeOfRight);
+				//To replace the target.
+				minNodeOfRight.left = target.left;
+				minNodeOfRight.right = target.right;
+				//3.1 The target is a left node.
+				if(parent.left != null && parent.left.no == target.no){
+					parent.left = minNodeOfRight;
+				}else{
+					//3.2 The target is a right node.
+					parent.right = minNodeOfRight;
+				}
+
+				//3.3 The minimum node of the right tree must be a left one.Then delete it.
+				parentOfMin.left = null;
+
+				*/
+
+				//!! The teacher's code. He has remove the minimum node on the right tree, meanwhile, and assign its value to the target.
+				int val = deleteMinimum(minNodeOfRight);
+				target.no = val;
+
 				
 			}else{
 
@@ -91,7 +117,7 @@ public class BinarySortedTree{
 	//To find the parent node
 	public TreeNode getParentNode(TreeNode child){
 		if(child == null)
-			throw new InvalidArgumentException("invalid node:null");
+			throw new InvalidArgumentException("Invalid node: null");
 		//The root node hasn't any parent.
 		if(root.no == child.no){
 			return null;
@@ -104,14 +130,44 @@ public class BinarySortedTree{
 	//To check if the node is a leaf.
 	public boolean isLeaf(TreeNode node){
 		if(node == null)
-			throw new InvalidArgumentException("invalid node:null");
+			throw new InvalidArgumentException("Invalid node: null");
 		if(node.left == null && node.right == null)
 			return true;
 		else
 			return false;
 	}
 
+	//To get the node with minimun value in a BST.
+	public TreeNode getMinNode(TreeNode node){
+		if(node == null)
+			throw new InvalidArgumentException("Invalid node: null");
+		
+		if(node.left == null){
+			return node;
+		}else{
+			return getMinNode(node.left);
+		}
+	
+	}
 
+	//To get the node with maximum value in a BST.
+	public TreeNode getMaxNode(TreeNode node){
+		if(node == null)
+			throw new InvalidArgumentException("Invalid node: null");
+		if(node.right == null){
+			return node;
+		}else{
+			return getMaxNode(node.right);
+		}
+		
+	}
+
+	//To delete the node with minimum value and to return its value.
+	public int deleteMinimum(TreeNode minNode){
+		int val = minNode.no;
+		deleteNode(minNode.no);
+		return val;
+	}
 
 }
 

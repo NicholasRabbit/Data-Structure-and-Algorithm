@@ -21,11 +21,14 @@ public class TestDeleteNode{
 		//bst.deleteNode(7);
 
 		//To delete a node with one child.
-		bst.deleteNode(14);
-		bst.deleteNode(4);  //delete a leaf and 6 has only one child.
-		bst.deleteNode(6);  
+		//bst.deleteNode(14);
+		//bst.deleteNode(4);  //delete a leaf and 6 has only one child.
+		//bst.deleteNode(6);  
+		bst.deleteNode(3);
 
+		
 		bst.infixList();
+
 
 	}		
 
