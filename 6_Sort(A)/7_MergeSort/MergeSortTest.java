@@ -49,9 +49,9 @@ public class MergeSortTest {
 			//向左递归，一直分到只有一个元素再弹栈
 			divide(array,left,mid,temp);   //当最后剩一个元素，不符合if(left < right)时就开始弹栈
 			//向右递归，同理
-			divide(array,mid + 1,right,temp);   //当最后剩一个元素，不符合if(left < right)时就开始弹栈
+			divide(array,mid + 1,right,temp);   //当最后剩一个元素，不符合if(left < right)时就开始弹栈，弹栈后就往下执行
 
-			//当栈顶层的最后一个递归弹栈后就开始比较并合并
+			//当栈顶层的最后一个递归弹栈后就开始比较并合并，最开始比较的是0和1，以及右边的n-1和n
 			merge(array,left,mid,right,temp);
 			
 		}
