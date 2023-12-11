@@ -78,7 +78,7 @@ public class BinarySearchTest {
 		int end = array.length - 1;
 		int mid = (begin + end) / 2;
 
-		while(begin < end){
+		while(begin <= end){
 			if(array[mid] > value){
 				//注意这里中间下标不符合要求就前移一位，否则到最后就一直等于某个下标（用递归的时候）
 				end = mid - 1;  

@@ -79,7 +79,7 @@ public class RecursionTest02 {
 			//5，以上情况都走不通，则设置当前点为3
 			}else{
 				maze[y][x] = 3;
-				flag = false;;
+				flag = false;    //走不通设置为3后，返回false
 			}
 		//起始点不等于0的情况，
 		}else{
