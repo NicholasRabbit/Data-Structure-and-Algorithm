@@ -270,6 +270,28 @@ Space	   O(n)	      O(n)
 
 
 
+### 10, AVL
+
+AVL (named after inventors Adelson-Velsky and Landis). The following explanation quoted from Wikipedia.
+
+```markdown
+In computer science, an AVL tree (named after inventors Adelson-Velsky and Landis) is a self-balancing binary search tree. In an AVL tree, the heights of the two child subtrees of any node differ by at most one; if at any time they differ by more than one, rebalancing is done to restore this property. Lookup, insertion, and deletion all take O(log n) time in both the average and worst cases, where n is the number of nodes in the tree prior to the operation. Insertions and deletions may require the tree to be rebalanced by one or more tree rotations.
+```
+
+**为什么要BST转化成AVL？**
+
+因为在根据BST的特性，有些情况下它有可能是一个单链表。这样的结构体现不出来二叉树的优势了，所以要想办法转化成AVL，使其各个节点平衡分步，这样查找修改的效率会利用上二叉树的特性。
+
+**相关定义：**
+
+自平衡二叉排序树，各叶子节点的高度差不超过1.
+
+左旋：右边子节点多了就向左旋。
+
+右旋：同理。
+
+
+
 ## 二，算法
 
 #### 学习算法的方法
