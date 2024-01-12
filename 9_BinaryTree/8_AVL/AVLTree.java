@@ -47,6 +47,7 @@ public class AVLTree{
 		int subtraction = leftHeight(root) - rightHeight(root);
 		while(subtraction > 1 || subtraction < -1){
 			rotateToLeft();
+			subtraction = leftHeight(root) - rightHeight(root);
 		}
 
 		return true;
@@ -55,8 +56,10 @@ public class AVLTree{
 	//左旋转，具体思路分析见本章节笔记
 	//这里只是完成一次调整。
 	public boolean rotateToLeft(){
-		//1, 创建临时节点，备份跟节点。
-		TreeNode temp = root;
+		//1, 创建临时节点，备份根节点。
+		//注意：这里不要直接写成 temp = root, 这种使用引用赋值的形式导致后面temp的左右节点改变后，root的节点也改变，因为它们俩指向的是同一个对象。
+		TreeNode temp = new TreeNode();
+		temp.no = root.no;  
 		//2, 临时节点的左节点指向根节点的左节点，右节点指向根节点的左子节点的右节点。
 		temp.left = root.left;
 		temp.right = root.right.left;
@@ -67,6 +70,20 @@ public class AVLTree{
 
 		return true;
 	
+	}
+
+
+	//每次添加完节点后，进行判断和左旋
+	public boolean rotateLeftWhenAdd(TreeNode node){
+		//1,添加节点
+		add(node);
+		//3,进行比较
+		int l = leftHeight(root);
+		int r = rightHeight(root);
+		if(l - r > 1 || l - r < -1){
+			rotateToLeft();
+		}
+		return true;
 	}
 	
 }
