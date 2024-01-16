@@ -1,5 +1,7 @@
 
-
+/*
+ * AVL Tree
+ * */
 public class AVLTree{
 
 	//根节点
@@ -41,8 +43,8 @@ public class AVLTree{
 		return root.rightHeight();
 	}
 
-	//旋转二叉树
-	public boolean rotate(){
+	//自动左旋旋转二叉树
+	public boolean rotateToLeftAuto(){
 		//1，计算左右子树高度差，看是否>1
 		int subtraction = leftHeight(root) - rightHeight(root);
 		while(subtraction > 1 || subtraction < -1){
@@ -84,6 +86,24 @@ public class AVLTree{
 			rotateToLeft();
 		}
 		return true;
+	}
+
+
+	//右旋转，和左旋同理
+	public boolean rotateToRight(){
+		//1, 创建临时节点，本分根节点的值
+		TreeNode temp = new TreeNode();
+		temp.no = root.no;
+		//2, temp右边指向原根节点的右节点,temp左边指向原根节点的左节点的右子节点
+		temp.right = root.right;
+		temp.left = root.left.right;
+		//3, 原根节点的左子节点作为新的根节点，
+		root = root.left;
+		//4, 新根节点右边指向temp
+		root.right = temp;
+
+		return true;
+	
 	}
 	
 }

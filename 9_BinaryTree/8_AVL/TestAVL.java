@@ -13,6 +13,7 @@ public class TestAVL {
 		AVLTree tree = new AVLTree();
 		for(int i = 0; i < arr.length; i++){
 			//tree.add(new TreeNode(arr[i]));   //使用下面的方法就注释本行
+			//3，添加节点时旋转
 			TestAVL.rotateWhenAdd(tree, new TreeNode(arr[i]));
 		}
 
@@ -20,8 +21,8 @@ public class TestAVL {
 		tree.infixList(tree.root);
 		//树的高度
 		height(tree);
-		//自动旋转(个人思路)
-		//rotateAutomatically(tree);  //使用rotateWhenAdd(...)时注释本行
+		//自动左旋转(个人思路)
+		//rotateToLeftAuto(tree);  //使用上面for循环里的rotateWhenAdd(...)时注释本行
 
 
 	}
@@ -44,18 +45,20 @@ public class TestAVL {
 	}
 
 	/*
-	 * 2, 自动旋转
+	 * 2, 向左自动旋转
 	 * 这里旋转方法是使用for循环对整个BST旋转，是个人思路。
 	 * 老师的是每次添加节点后判断，如果高度差 > 1 则进行旋转。
+	 * 注意: 这里个人手写的树是为了测试左旋而特定写的，实际上这种旋转没有考虑右子树的复杂情况。
+	 * 详见本节个人ppt解释。
 	 * */
-	public static void rotateAutomatically(AVLTree tree){
+	public static void rotateToLeftAuto(AVLTree tree){
 
 		//单次旋转
 		//tree.rotateToLeft();  //使用下面自动旋转时把这里注释
 		//height = tree.getHeight(tree.root);
 		//System.out.println("The height of tree is " + height);
 
-		tree.rotate();
+		tree.rotateToLeftAuto();
 		int height = tree.getHeight(tree.root);  //得树高度为4，比实际高度大1，并不是旋转代码错误。
 		System.out.println("End result:" + height);
 
