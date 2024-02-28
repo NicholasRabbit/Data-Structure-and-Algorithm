@@ -12,6 +12,8 @@
 
 一般压缩率在20-90%之间。
 
+参考：<a href="https://www.reddit.com/r/javaexamples/comments/3gatvr/intermediate_huffman_tree_encoding/">Huffman Code Demo</a>
+
 #### 二，思路分析
 
 1，把下面一段文字按霍夫曼编码，通过EditPlus计算共有183各ANSI字符
