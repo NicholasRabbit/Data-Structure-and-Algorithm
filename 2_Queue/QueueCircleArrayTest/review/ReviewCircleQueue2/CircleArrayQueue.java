@@ -37,7 +37,7 @@ public class CircleArrayQueue{
 	}
 
 	public boolean isFull() {
-		// There is an empty
+		// There is an empty pad between the bottom and the top.
 	    boolean b = (bottom + 1) % maxSize == top;
 	    return b;
 	}
