@@ -23,3 +23,4 @@ inputs	outputs
 ```
 
 Apparently, the goal of the programme that we are going to devise, which is evident, is to find the "connection" in the "previous inputs" efficiently. An algorithm should be considered.
+
