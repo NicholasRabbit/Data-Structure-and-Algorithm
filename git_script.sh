@@ -8,7 +8,7 @@ BRANCH="master"  # or "master" depending on your default branch
 
 push_to_github() {
 # Add all new and modified files
-	git add .
+	git add --all
 
 # Prompt user to enter a commit message
 	read -p "Enter commit message: " commit_msg
