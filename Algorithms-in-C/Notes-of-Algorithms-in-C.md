@@ -47,16 +47,12 @@ int main(void)
 		for (t = id[p], i = 0; i < N; i++)  
 			if (id[i] == t)
 				id[i] = id[q];
-	
-		printf("%d %d\n", p, q);
-	
-		printf("after adding nodes\n");
-		for (i = 0; i < N; i++)
-			printf("%d ", id[i]);
-		printf("\n");
-
+            printf("%d %d\n", p, q);
+            printf("after adding nodes\n");
+            for (i = 0; i < N; i++)
+                printf("%d ", id[i]);
+            printf("\n");
 	}
-
 	return 0;
 }
 ```
