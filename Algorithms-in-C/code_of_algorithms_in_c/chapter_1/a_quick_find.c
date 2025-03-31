@@ -25,7 +25,7 @@ int main(void)
 		
 		printf("%d %d\n", p, q);
 	
-		printf("After adding nodes:\n");
+		printf("After inputing nodes:\n");
 		for (i = 0; i < N; i++)
 			printf("%d ", id[i]);
 		printf("\n");
