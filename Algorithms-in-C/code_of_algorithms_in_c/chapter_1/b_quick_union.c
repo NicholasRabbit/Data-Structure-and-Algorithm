@@ -13,7 +13,7 @@ int main(void)
 
 	/*
 	 * This is improvement to 'quick-find' algorightm because it does not
-	 * need to scan all the elements in the array. It only changes the value
+	 * need to scan all the elements in an array. It only changes the value
 	 * of an element in the index of 'i' to that in the index of 'j'. If "id[j]"
 	 * has been changed, then "id[i]" will be assigned the changed value.
 	 * For instance, after inputing the fourth pair "2 3" "id[2]" has been altered 
