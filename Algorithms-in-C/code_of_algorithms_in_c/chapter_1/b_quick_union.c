@@ -2,6 +2,8 @@
 
 #define N 10
 
+int iterate_array(int *id);
+
 int main(void) 
 {
 	
@@ -21,19 +23,33 @@ int main(void)
 	 *
 	 * */ 
 	while (scanf("%d %d", &p, &q) == 2) {
-		for (i = p; i != id[i]; i = id[i]);
-		for (j = q; j != id[j]; j = id[j]);
+		for (i = p; i != id[i]; i = id[i]) {
+			printf("i = %d\n", i);
+		}
+		for (j = q; j != id[j]; j = id[j]) {
+			printf("j = %d\n", j);
+		}
+    // That indicates that he two elements point to the same root
 		if (i == j) continue;
 		id[i] = j;
 		printf(" %d %d\n", p, q);
 
-		printf("After inputing nodes:\n");
-		for (i = 0; i < N; i++)
-			printf("%d ", id[i]);
-		printf("\n");
+		iterate_array(id);
 
 	}
 
+	return 0;
+}
+
+
+int iterate_array(int *id)
+{
+
+	printf("After inputing nodes:\n");
+	int i;
+	for (i = 0; i < N; i++)
+		printf("%d ", id[i]);
+	printf("\n");
 	return 0;
 }
 
