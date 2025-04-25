@@ -1,4 +1,4 @@
-From ChatGPT.
+**From ChatGPT.**
 
 Great! You're referring to **Property I.2** from *Algorithms in C* by **Robert Sedgewick**, which appears in the section discussing **dynamic connectivity**, specifically the **quick-union** algorithm.
 

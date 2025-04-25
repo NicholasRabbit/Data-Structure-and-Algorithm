@@ -50,10 +50,6 @@ int main(void)
 			if (id[i] == t)
 				id[i] = id[q];
             printf("%d %d\n", p, q);
-            printf("after adding nodes\n");
-            for (i = 0; i < N; i++)
-                printf("%d ", id[i]);
-            printf("\n");
 	}
 	return 0;
 }
@@ -81,6 +77,8 @@ After inputting 3,4
 
 ##### 2) a quick-union algorithm
 
+**(1) Elaboration of Property 1.2**
+
 **Property 1.2:** Property 1.2 (Page 15) Fro M>N, the *quick-union algorithm* could take more than MN/2 instructions to solve a connectivity problem with M pairs of N objects.
 
 Why does it at least take $MN\backslash 2$ instructions?
@@ -94,4 +92,49 @@ $(0+1+2...(N-1))/ N=(N-1)/2$
 Since the number of operands in $(0+1+2...(N-1))$ is N in total, we can get $[0+(N-1)]\times N/2$.
 
 **!!** I don't understand why the conclusion of Proper 1.2 even though I read the [explanation from ChatGPT](.\analyses_and_explanantion\An Explanation of Property I.2.md).
+
+**(2) Reasoning of quick-union algorithm.**
+
+Why does "2" connect to "9" when a pair of "2, 3"? See [graphical representation.](./analyses_and_explanantion/reasoning of quick-union.pptx)
+
+Because "9" is the root of "3". If we want to know if any object connects "3", we should find its root and connect this root.
+
+```c
+int main(void) 
+{
+	int i, j, p, q, id[N];	
+	// initialisation
+	for (i = 0; i < N; i++)
+		id[i] = i;
+	while (scanf("%d %d", &p, &q) == 2) {
+        for (i = p; i != id[i]; i = id[i]);
+		for (j = q; j != id[j]; j = id[j]);
+		// That indicates that he two elements point to the same root
+        if (i == j) continue;  
+		id[i] = j;
+		printf(" %d %d\n", p, q);
+	}
+	return 0;
+}
+```
+
+A. How does the quick-union algorithm works?
+
+(1) When the first pair of "3, 4" is input, since they are not in the same set or connected, we let "3" points "4". "4" is the root of this very first tree. 
+
+(2) When the second pair of "4, 9" is input, "4" points its root "9" which becomes the new root of "3".
+
+(3) It is the same with the new pair of "8, 0".
+
+(4) Attention should be paid when the forth pair of "2, 3" is input. As "3" is in a tree with a root "9", it is impossible to connect "2" and "3" directly; "2" is connected to the root "9" of the tree. 
+
+**N.B.** it is crucial to understand the logic of an algorithm first and to assimilate the code later. It is also possible to deduce the logic by reading the given code. But be aware of that the priority is the logic. 
+
+When we find an element points itself, it must be a root.
+
+B. How can we find whether two elements are connected or not?
+
+If they points the same root after iterating two for-loops. See `    if (i == j) continue;  `.
+
+
 
