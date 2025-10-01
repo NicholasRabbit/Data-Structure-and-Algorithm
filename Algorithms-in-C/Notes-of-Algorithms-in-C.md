@@ -1,5 +1,15 @@
 ## Chapter 1 Introduction
 
+### 1.1 Algorithms
+
+What are algorithms?
+
+Algorithms are methods to solve problems; they are not programs but are independent from the applications where they are. We can implement an algorithm whatever the programming language we use. 
+
+What are data structures?
+
+Many algorithms involves methods of organising the data; objects created in that way are data structures. Data structures are by-products and end products of algorithms. 
+
 ### 1.2 A Sample Problem: Connectivity
 
 Here is the elaboration of the first problem-connectivity example.
