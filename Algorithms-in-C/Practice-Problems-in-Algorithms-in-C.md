@@ -6,5 +6,5 @@ Estimate the minimum amount of time (in days) that would be required for quick f
 
 **A solution:** 
 
-If a while loop consists of at least 10 instructions, we consider that $N$ represents the objects of an array and $M$ represents the number of pairs then we conclude that it needs $T=MN$ while loops. Since there are at least 10 instructions in each while loop, the total number of instructions is $10\times MN$, namely $10^6\times10^9\times10=10^{16}$. Consequently, the time consumption is $10^{16}\div 10^9=10^7$ seconds. If it were measured in days, the result would be approximately $10^7\div(24\times60\times60)\approx 115.74$ which is extremely and unacceptably long time for a programme.
+If a while loop consists of at least 10 instructions, we assume that $N$ represents the objects of an array and $M$ represents the number of pairs then we conclude that it needs $T=MN$ while loops. Since there are at least 10 instructions in each while loop, the total number of instructions is $10\times MN$, namely $10^6\times10^9\times10=10^{16}$. Consequently, the time consumption is $10^{16}\div 10^9=10^7$ seconds. If it were measured in days, the result would be approximately $10^7\div(24\times60\times60)\approx 115.74$(days) which is extremely and unacceptably long time for a programme.
 

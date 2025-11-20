@@ -26,10 +26,10 @@ inputs	outputs
 //The first pairs of inputs: They are the first inputs so it is self-evident that they are not connected directly to each other when search for the stored table.
 3-4 	3-4   
 4-9		4-9   //The second pairs are still not directly connected by the previous inputs
-8-0		8-0   //The are the same.
+8-0		8-0   //They are the same.
 2-3		2-3
 5-6		5-6
-2-9 		 //The programme doesn't output because 2-9 can be connected by '2-3,3-4,4-9'
+2-9 		 //The programme doesn't output because 2-9 is connected by '2-3,3-4,4-9'
 ....
 5-6 		 //No output. Because '5-6' has been input and connected each other. They are 'implied' by the previous inputs.
 ```
@@ -105,7 +105,7 @@ Since the number of operands in $(0+1+2...(N-1))$ is N in total, we can get $[0+
 
 **(2) Reasoning of quick-union algorithm.**
 
-Why does "2" connect to "9" when a pair of "2, 3"? See [graphical representation.](./analyses_and_explanantion/reasoning of quick-union.pptx)
+Why does "2" connect to "9" when there is a pair of "2, 3"? See [graphical representation.](./analyses_and_explanantion/reasoning of quick-union.pptx)
 
 Because "9" is the root of "3". If we want to know if any object connects "3", we should find its root and connect this root.
 
@@ -119,7 +119,7 @@ int main(void)
 	while (scanf("%d %d", &p, &q) == 2) {
         for (i = p; i != id[i]; i = id[i]);
 		for (j = q; j != id[j]; j = id[j]);
-		// That indicates that he two elements point to the same root
+		// That indicates that the two elements point to the same root
         if (i == j) continue;  
 		id[i] = j;
 		printf(" %d %d\n", p, q);
