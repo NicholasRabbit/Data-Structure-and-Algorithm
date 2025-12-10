@@ -2,7 +2,7 @@
 
 #define N 10
 
-int iterate_array(int *id);
+int iterate_array(int id[]);
 
 int main(void) 
 {
@@ -19,7 +19,7 @@ int main(void)
 	 * of an element in the index of 'i' to that in the index of 'j'. If "id[j]"
 	 * has been changed, then "id[i]" will be assigned the changed value.
 	 * For instance, after inputing the fourth pair "2 3" "id[2]" has been altered 
-	 * to "9" as that in "id[3]".
+	 * to "9" as same as that in "id[3]", because "9" is the root of "id[3]".
 	 *
 	 * */ 
 	while (scanf("%d %d", &p, &q) == 2) {
@@ -42,7 +42,7 @@ int main(void)
 }
 
 
-int iterate_array(int *id)
+int iterate_array(int id[])
 {
 
 	printf("After inputing nodes:\n");
