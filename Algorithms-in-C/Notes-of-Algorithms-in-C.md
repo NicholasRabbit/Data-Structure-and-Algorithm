@@ -93,17 +93,27 @@ After inputting 3,4
 
 Why does it at least take $MN\backslash 2$ instructions?
 
-The worst scenario of *quick-union* is the tree is linear; it at least takes 0 and at most $N-1$ steps to find object N. 
+The worst scenario of *quick-union* is the tree is linear; it at least takes 0 and at most $N-1$ steps to find object N. Note that there are N objects and the index the Nth object is $N-1 $`id[N-1]`.
+
+(1.1) How can we get the Equation 1.2 ? 
 
 Elaboration of the equation:
 
-$(0+1+2...(N-1))/ N=(N-1)/2$ 
+$(0+1+2...(N-1))/ N=(N-1)/2$   **(Equation 1.2)**
 
-Since the number of operands in $(0+1+2...(N-1))$ is N in total, we can get $[0+(N-1)]\times N/2$.
+Since the number of operands in $(0+1+2...(N-1))$ is N in total, we can get N/2 of $[0+(N-1)] + [1+(N-2)]...$.  Thus, $N(N-1)/2N$ is $(N-1)/2$.
 
-**!!** I don't understand why the conclusion of Proper 1.2 even though I read the [explanation from ChatGPT](.\analyses_and_explanantion\An Explanation of Property I.2.md).
+To indicate that two objects are connected, their roots must be the same one. Note that an object which is solitary is the root of itself. In the above set, all the numbers are pointed to $N- 1$, namely the root is $N-1$. As an illustration, in $1 \rightarrow 2 \rightarrow 3 \rightarrow ... 9 \rightarrow 9$, `id[0] = 1, id[1]=2` and so forth; the root is 9. In the `quick-union` program, it is `for (i = p; i != id[i]; i = id[i]);` which indicates the root should be found, therefore the least number of pointers is 0 when one of the input pair is 9 and the maximum pointers is 9 (N-1). That's how the **Equation 1.2** is created. 
 
-**(2) Reasoning of quick-union algorithm.**
+(1.2) Why does it take at least $MN/ 2$ instructions?
+
+*"Now suppose that the remainder of the pairs all connect N to some other object."*  from page 16.
+
+To be analysed...
+
+
+
+ **(2) Reasoning of quick-union algorithm.**
 
 Why does "2" connect to "9" when there is a pair of "2, 3"? See [graphical representation.](./analyses_and_explanantion/reasoning of quick-union.pptx)
 
