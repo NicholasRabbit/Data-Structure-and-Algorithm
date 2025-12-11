@@ -23,13 +23,14 @@ int main(void)
 	 *
 	 * */ 
 	while (scanf("%d %d", &p, &q) == 2) {
-		for (i = p; i != id[i]; i = id[i]) {
+		// We intend to find the roots of the input pair by these two "for" loops.
+		for (i = p; i != id[i]; i = id[i]) {  
 			printf("i = %d\n", i);
 		}
 		for (j = q; j != id[j]; j = id[j]) {
 			printf("j = %d\n", j);
 		}
-    // That indicates that he two elements point to the same root
+		// That indicates that he two elements point to the same root
 		if (i == j) continue;
 		id[i] = j;
 		printf(" %d %d\n", p, q);
