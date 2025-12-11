@@ -1,3 +1,11 @@
+## How To Learn
+
+Summary
+
+1. It is necessary and efficient to reason an algorithm before analysing code examples in this book. 
+
+
+
 ## Chapter 1 Introduction
 
 ### 1.1 Algorithms
@@ -91,11 +99,11 @@ After inputting 3,4
 
 **Property 1.2:** Property 1.2 (Page 15) Fro M>N, the *quick-union algorithm* could take more than MN/2 instructions to solve a connectivity problem with M pairs of N objects.
 
-Why does it at least take $MN\backslash 2$ instructions?
+Why does it at least take $MN/2$ instructions?
 
 The worst scenario of *quick-union* is the tree is linear; it at least takes 0 and at most $N-1$ steps to find object N. Note that there are N objects and the index the Nth object is $N-1 $`id[N-1]`.
 
-(1.1) How can we get the Equation 1.2 ? 
+(1.1) How can we get the Equation 1.2 in page 16? 
 
 Elaboration of the equation:
 
@@ -157,4 +165,10 @@ B. How can we find whether two elements are connected or not?
 If they points the same root after iterating two for-loops. See `    if (i == j) continue;  `.
 
 
+
+**(3) Why does $1+lgi = lg(i + i)$?**
+
+Note that in computer science $lg$ is $log_2$ by default.
+
+Since $1 = log_22=lg2$, $1+lgi = lg2+lgi = lg2i$, therefore, $lg2i = lg(i + i)$.
 
